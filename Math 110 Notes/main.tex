@@ -1,0 +1,928 @@
+\documentclass[10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{empheq}
+\usepackage[inline, shortlabels]{enumitem}
+\usepackage{gensymb}
+\usepackage{multicol}
+\setlength{\parskip}{0.5cm plus4mm minus3mm}
+\setlength{\parindent}{0pt}
+\usepackage{amsmath}
+\usepackage{upgreek}
+\usepackage[nobreak=true]{mdframed}
+\usepackage[margin=0.6in]{geometry}
+ \geometry{
+ left=12mm,
+ bottom=20mm
+ }
+\usepackage{amssymb}
+\usepackage{cs170}
+\usepackage{titlesec}
+\usepackage{chngcntr}
+\usepackage{graphicx}
+\usepackage{changepage}
+\usepackage{chngcntr}
+\usepackage{scrextend}
+
+\begin{document}
+\date{}
+\title{\vspace{-5ex} \dunhd{Math 110: Linear Algebra Notes} \vspace{-5ex}}
+\maketitle
+\begin{multicols*}{2}
+\begin{enumerate}
+    \item \textbf{Vector Spaces} 
+    \begin{enumerate}
+        \item A \textbf{field} $F$ is a set on which two operations (addition and multiplication) are defined so that, for each pair $x,y \in F$, there are unique elements $x+y$ and $x \cdot y \in F$ for which the following conditions hold: commutativity of addition and multiplication, associativity of addition and multiplication, existence of identity elements (0 and 1) for addition and multiplication respectively, existence of inverses for addition and multiplication, and distributivity of multiplication over addition. Thus $\mathbb{Q}, \mathbb{R}, \mathbb{C}$ are fields while $\mathbb{N}, \mathbb{Z}$ are not.
+        
+         \item A \textbf{vector space} $V$ over a field $F$ is a set on which two operations (addition and scalar multiplication) are defined such that the set is closed under the operations, and the following conditions hold for every $\vec{u},\vec{v},\vec{z} \in$ $V$ and $a,b \in F$:
+         \begin{enumerate}
+            \item Commutativity of addition: $\vec{u}+\vec{v}=\vec{v}+\vec{u}$.
+            \item Associativity of addition: $(\vec{u}+\vec{v})+\vec{z} =\vec{u}+(\vec{v}+\vec{z})$.
+            \item Additive identity: There is $\vec{0} \in$ $V$ such that for all $\vec{u}$, $\vec{0}+\vec{u}=\vec{u}$.
+            \item Existence of inverse: For every $\vec{u}$, there is an element $\vec{w}$ such that $\vec{u}+\vec{w} = \vec{0}$.
+            \item Multiplicative identity: There is $1\vec{u} =\vec{u}$.
+            \item Associativity of scalar multiplication: $(ab)\vec{u} = a(b\vec{u})$.
+            \item Distributivity of vectors: $a(\vec{u}+\vec{v}) = a\vec{u}+a\vec{v}$.
+            \item Distributivity of scalars: $(a+b)\vec{u} = a\vec{u}+b\vec{u}$.
+         \end{enumerate}
+         The elements of $F$ are \textbf{scalars} and the elements of $V$ are \textbf{vectors}.
+         \item Examples of vector spaces:
+         \begin{itemize}
+             \item $F$ is a 1-dimensional vector space over itself.
+             
+             \item The set of $n$-tuples with entries from a field $F$, denoted $F^n$.
+             
+             \item The set of all $m \times n$ matrices with entries from a field $F$, denoted $M_{m \times n} (F)$.
+             
+             \item The set of all polynomials of degree at most $n$ with coefficients from a field $F$, denoted $\mathbb{P}_n(F)$. 
+             
+             \item The set of all functions from a non-empty set $S$ to some field $F$, $\mathcal{F}(S,F)$ is a vector space with addition and scalar multiplication for $f,g \in \mathcal{F}(S,F)$ and $c \in F$ defined as $(f+g)(s) = f(s) + g(s)$ and $(cf)(s) = c[f(s)]$.
+         \end{itemize}
+         
+         \item Some consequences of the definition of a vector space:
+         \begin{itemize}
+             \item $\vec{x} + \vec{z} = \vec{y} + \vec{z} \implies \vec{x} = \vec{y}$
+             \item The additive inverse of $\vec{x}$ is given by $(-1)\vec{x}$.
+             \item The zero vector and the additive inverse are unique.
+         \end{itemize}
+         \item The following holds of scalar multiplication: $$0\vec{x} = \vec{0} \hspace{5mm} \forall x \in V \hspace{6mm}
+             a\vec{0} = \vec{0} \hspace{5mm} \forall a \in F$$
+
+    \end{enumerate}
+    
+    \item \textbf{Vector Subspaces}
+    \begin{enumerate}
+        \item A subset $W$ of a vector space $V$ over a field $F$ is a \textbf{subspace} of $V$ if $W$ is a vector space over $F$ with the operations of addition and scalar multiplication defined in $V$.
+        
+        \item Theorem: $W$ is a subspace of $V$ iff the following conditions hold:
+        \begin{itemize}
+            \item $\vec{0} \in W$
+            \item $\vec{x} + \vec{y} \in W$ \hspace{1.7mm}$\forall \vec{x}, \vec{y} \in W$
+            \item $c\vec{x} \in W$ \hspace{5mm} $\forall c \in F, \vec{x} \in W$
+        \end{itemize}
+        The other axioms are inherited from the vector space $V$, or follow from the above three. Note that $\vec{0}$ is the same zero vector from $V$.
+        
+        \item Examples of subspaces:
+        \begin{itemize}
+            \item For any vector space $V$, $\{\vec{0}\}$ and $V$ itself are trivial subspaces.
+            \item Set of all continuous real-valued even functions on $\mathbb{R}$, subspace of $\mathcal{F}(\mathbb{R}, \mathbb{R})$ \\
+            Recall: A function $g$ is even if $g(-t) = g(t), \forall t \in F$ and odd if $g(-t) = -g(t), \forall t \in F$.
+            
+            \item Set of all $n \times n$ matrices with trace equal to zero, subspace of $M_{n \times n}(F)$.
+        \end{itemize}
+        
+        \item Matrix terminology:\\ The \textbf{transpose} of a $m \times n$ matrix $A$ is the $n \times m$ matrix $A^T$ where $A^T_{ij} = A_{ji}$ for $1 \leq i \leq m$ and $1 \leq j \leq n$. A \textbf{symmetric} matrix is a matrix $A$ such that $A = A^T$. We have$(aA + bB)^T = aA^T + bB^T$. A \textbf{diagonal matrix} has all non-diagonal entries zero. The \textbf{trace} of a square matrix is the sum of the diagonal entries. A \textbf{skew symmetric} matrix is a matrix $A$ such that $A^T = -A$. 
+        
+        \item Constructions of subspaces
+        \begin{enumerate}
+            \item The intersection of subspaces of a vector space $V$ is a subspace of $V$. 
+            \item The union of subspaces of a vector space $V$ is \textit{not} a subspace of $V$ (unless one subspace contains the other).
+        \end{enumerate}
+        \item Let $W_1$ and $W_2$ be subspaces of a vector space $V$. The \textbf{sum} of $W_1$ and $W_2$, denoted $W_1 + W_2$, is the set $\{\vec{x}+\vec{y} \mid \vec{x} \in W_1, \vec{y} \in W_2\}$. The sum is the smallest subspace of $V$ that contains $W_1$ and $W_2$.
+        \item The vector space $W$ is the \textbf{direct sum} of $W_1$ and $W_2$, denoted $W_1 \oplus W_2$, if $W = W_1 + W_2$ and $W_1 \cap W_2 = \{ \vec{0} \}$. As a consequence, every vector in $W$ has a unique decomposition $\vec{w_1} + \vec{w_2}$ for $\vec{w_1} \in W_1$, $\vec{w_2} \in W_2$. Examples:
+        \begin{itemize}
+            \item For any matrix $A$, we have $A = \frac{1}{2}(A + A^T) + \frac{1}{2}(A - A^T)$, where $A + A^T$ is symmetric and $A - A^T$ is skew-symmetric.
+            \item For any function $f$, $f= \frac{1}{2} (f(t) + f(-t)) + \frac{1}{2}(f(t) - f(-t))$, where $f(t) + f(-t)$ is even and $f(t) - f(-t)$ is odd.
+        \end{itemize}
+        \item Two sets $S_1$ and $S_2$ are \textbf{equal} iff $S_1 \subseteq S_2$ and $S_2 \subseteq S_1$. That is, every element in each set is in the other set.
+    \end{enumerate}
+    
+    \item \textbf{Linear Combinations and Systems of Equations}
+    \begin{enumerate}
+        \item A vector $\vec{v} \in V_F$ is a \textbf{linear combination} of vectors $\vec{u_1}, \vec{u_2}, \hdots, \vec{u_n}$ if $\vec{v} = a_1\vec{u_1} + a_2\vec{u_2} + \hdots + a_n\vec{u_n}$ for scalars $a_i \in F$.
+        \item Solving a system of equations amounts to finding the $a_1, a_2, \hdots, a_n$ scalars needed to express a certain vector as a linear combination of others. Three operations can be used to simplify a system without changing the set of solutions:
+        \begin{enumerate}
+            \item Interchanging the order of equations
+            \item Multiplying any equation by a nonzero constant
+            \item Adding a constant multiple of any equation to another equation
+        \end{enumerate}
+        \item Let $S$ be a nonempty subset of $V$. The \textbf{span} of $S$, denoted Span($S$), is the set consisting of all linear combinations of the vectors in $S$. Note Span($\emptyset$) = $\{ \vec{0} \}$.
+        \item Theorem: The span of any subset $S$ of $V$ is a subspace of $V$. Further, any subspace that contains $S$ must also contain Span($S$).
+        \item A subset $S$ of a vector space $V$ \textbf{generates/spans} $V$ if Span($S$) = $V$. 
+        \item If $S_1$ and $S_2$ are subsets of $V$, then
+        \begin{itemize}
+            \item Span($S_1 \cup S_2) = \text{Span}(S_1) + \text{Span}(S_2)$
+            \item Span($S_1 \cap S_2) \subseteq \text{Span}(S_1) \cap \text{Span}(S_2)$
+        \end{itemize}
+    \end{enumerate}
+    
+    \item \textbf{Linear Dependence and Independence}
+    \begin{enumerate}
+        \item A subset $S$ of a vector space $V$ is \textbf{linearly dependent} if there exists a finite number of distinct vectors $\vec{u_1}, \vec{u_2}, \hdots, \vec{u_n} \in S$ and scalars $a_1, a_2, \hdots, a_n$, not all zero, such that
+        $$a_1\vec{u_1} + a_2\vec{u_2} + \hdots + a_n\vec{u_n} = \vec{0}$$
+        That is, at least one vector can be written as a linear combination of the others. Consequently, any subset that contains $\vec{0}$ is linearly dependent.
+        \item A subset $S$ of a vector space $V$ is \textbf{linearly independent} if whenever we have
+        $$c_1\vec{u_1} + c_2\vec{u_2} + \hdots + c_n\vec{u_n} = \vec{0}$$ 
+        then we must have $c_1 = c_2 = \hdots = c_n = 0$ for $\vec{u_1}, \vec{u_2}, \hdots, \vec{u_n} \in S$. Hence, the empty set and any set consisting of a single nonzero vector is linearly independent.
+    \end{enumerate}
+    
+    \item \textbf{Basis and Dimension}
+    \begin{enumerate}
+        \item A \textbf{basis} $\beta$ for a vector space $V$ is a linearly independent subset of $V$ that generates $V$. Examples:
+        \begin{itemize}
+            \item $\emptyset$ is a basis for the zero vector space $\{ \vec{0} \}$.
+            \item Let $\vec{e_1} = (1,0,0,\hdots,0)$, $\vec{e_2} = (0,1,0,\hdots,0)$, $\vec{e_n} = (0,0,0,\hdots,1)$. Then $\{ \vec{e_1}, \vec{e_2}, \hdots, \vec{e_n} \}$ is the standard basis for $F^n$.
+            \item The set $\{1,x,x^2,\hdots,x^n \}$ is the standard basis for $\mathbb{P}_n(F)$.
+        \end{itemize}
+        
+        \item The \textbf{dimension} of a vector space $V$, denoted dim($V$), is the number of vectors in a basis for $V$.
+        
+        \item Replacement Theorem: Let $V$ be a vector space generated by a set $G$ containing $n$ vectors, and $L$ be a linearly independent subset of $V$ containing $m$ vectors. Then $m \leq n$ and there exists a subset $H$ of $G$ with $n-m$ vectors such that $L \cup H$ generates $V$.
+        
+        \item Consequences: 
+        \begin{enumerate}
+            \item If $V$ is finite-dimensional, then every basis for $V$ contains the same number of vectors.
+            \item Any linearly independent subset of $V$ that contains exactly $n$ = dim($V$) vectors is a basis for $V$.
+            \item Every linearly independent subset of $V$ can be extended into a basis for $V$.
+        \end{enumerate}
+        
+        \item Dimension examples:
+        \begin{itemize}
+            \item $F^n$ has dimension $n$.
+            \item $M_{m \times n}(F)$ has dimension $mn$.
+            \item $\mathbb{P}_n(F)$ has dimension $n+1$.
+            \item $\mathbb{C}$ has dimension 1 over $\mathbb{C}$ and dimension 2 over $\mathbb{R}$.
+            \item A basis for the set of all symmetric $n \times n$ matrices is $\{ A^{ij} \mid 1 \leq i \leq j \leq n \}$ where $A^{ij}$ is the $n \times n$ matrix with 1 in the $i^{th}$ row and $j^{th}$ column, 1 in the $j^{th}$ row and $i^{th}$ column, and 0 elsewhere. The dimension is $\frac{1}{2} n(n+1)$.
+            \item The dimension of the set of all $n \times n$ skew-symmetric matrices is $\frac{1}{2} n(n-1)$ since we must have 0s on the diagonal. 
+        \end{itemize}
+        \item Dimensions of subspaces: Let $W$ be a subspace of a finite-dimensional vector space $V$. Then dim($W) \leq $ dim($V$). If dim($W) = $ dim($V$), then $W = V$.
+        \item For any two subspaces $W_1$ and $W_2$ of a finite-dimensional vector space $V$,
+        \begin{align*}
+            \text{dim}&(W_1 + W_2) = \\ &\text{dim}(W_1) + \text{dim}(W_2) - \text{dim}(W_1 \cap W_2)
+        \end{align*}
+    \end{enumerate}
+    
+    \columnbreak
+    \item \textbf{Linear Transformations}
+    \begin{enumerate}
+        \item Let $V$ and $W$ be vector spaces over $F$. A function $T:V \mapsto W$ is a \textbf{linear transformation} if $\forall \vec{x}, \vec{y} \in V, c \in F$, we have
+        \begin{enumerate}
+            \item $T(\vec{x} + \vec{y}) = T(\vec{x}) + T(\vec{y})$
+            \item $T(c\vec{x}) = cT(\vec{x})$
+        \end{enumerate}
+        \item Properties of $T$:
+        \begin{itemize}
+            \item If $T$ is linear, $T(\vec{0}_V) = \vec{0}_W$
+            \item $T$ is linear iff $T$ is closed under linear combination.
+        \end{itemize}
+        \item In $\mathbb{R}^n$, rotation, reflection, and projection are examples of linear transformations. Differentiation and integration are linear transformations on vector spaces of continuous functions.
+        \item Let $T: V \mapsto W$ be a linear transformation. 
+        \begin{enumerate}
+            \item The \textbf{null space} $\mathcal{N}(T)$ (or \textbf{kernel} Ker $T$) of $T$ is $\{\vec{x} \in V \mid T(\vec{x}) = \vec{0}_W \}$.
+            \item The \textbf{range} (or \textbf{image} Im $T$) is the subset of $W$ consisting of all images of vectors in $V$; that is, $\{ T(\vec{x}) \mid \vec{x} \in V \}$.
+        \end{enumerate}
+        \item The kernel and image of $T$ are subspaces of $V$ and $W$, respectively.
+        \item If $\beta = \{ \vec{v_1}, \hdots, \vec{v_n} \}$ is a basis for $V$, then 
+        \begin{align*}
+            \text{Im }T = \text{Span}\left(\{ T(\vec{v_1}), \hdots, T(\vec{v_n}) \}\right)
+        \end{align*}
+        \item Define the \textbf{nullity} and \textbf{rank} of $T$ to be the dimensions of the null space and range, respectively. \item \textbf{Dimension Theorem}: Let $V$ and $W$ be vector spaces, and let $T: V \mapsto W$ be linear. If $V$ is finite-dimensional, then
+        \begin{align*}
+            \text{nullity}(T) + \text{rank}(T) = \text{dim}(V)
+        \end{align*}
+        \item A function $f: A \mapsto B$ is
+        \begin{itemize}
+            \item \textbf{injective} (\textbf{one-to-one}) if whenever $f(x) = f(y)$, then $x=y$. Equivalently, $f(x) = 0$ iff $x=0$.
+            \item \textbf{surjective} (\textbf{onto}) if $B = \text{Im } f$.
+        \end{itemize}
+        \item $T$ is one-to-one iff $\mathcal{N}(T) = \{ \vec{0} \}$. $T$ is onto iff $\text{Im }(T) = W$.
+        \item If $V$ and $W$ are vector spaces of equal and finite dimension, and $T: V \mapsto W$ is linear, then the following are equivalent: $T$ is onto, $T$ is one-to-one, and rank$(T)$ = dim$(V)$.
+        \item A linear transformation is completely determined by its action on a basis. That is, if $\{\vec{v_1},\hdots,\vec{v_n}\}$ is a basis for $V$ and $T : V \mapsto W$ is linear, then for any $\vec{w_1},\hdots,\vec{w_n} \in W$, there exists (exactly one) linear transformation $T$ such that $T(\vec{v_i}) = \vec{w_i}$ for $1 \leq i \leq n$. 
+    \end{enumerate}
+    
+    \columnbreak
+    \item \textbf{Matrix Representation of a Transformation}
+    \begin{enumerate}
+        \item There is a one-to-one correspondence between linear transformations and matrices that allows us to utilize properties of one to study properties of the other.
+        \item Let $\beta = \{ \vec{u_1}, \vec{u_2}, \hdots, \vec{u_n} \}$ be an \textit{ordered} basis for $V$. For $\vec{x} \in V$, let $a_1, a_2, \hdots, a_n$ be the unique scalars such that $x = \sum_{i=1}^{n} a_i \vec{u_i}$. Then the \textbf{coordinate vector of $\vec{x}$ with respect to $\beta$}, denoted $[\vec{x}]_\beta$, is
+        \begin{align*}
+            [\vec{x}]_\beta = 
+            \begin{bmatrix} a_1 \\ a_2 \\ \vdots \\ a_n \end{bmatrix}
+        \end{align*}
+        
+        \item Suppose $V$ and $W$ are finite vector spaces with ordered bases $\beta = \{ \vec{v_1}, \hdots, \vec{v_n} \}$ and $\gamma = \{ \vec{w_1}, \hdots, \vec{w_m} \}$, respectively. Let $T: V \mapsto W$ be linear. The \textbf{matrix of $T$ with respect to bases $\beta$ and $\gamma$}, denoted $[T]_\beta^\gamma$, is the $m \times n$ matrix
+        \begin{align*}
+            [T]_\beta^\gamma = \begin{bmatrix}
+            \mid & \mid &  & \mid \\
+            [T(\vec{v_1})]_\gamma & [T(\vec{v_2})]_\gamma & \cdots & [T(\vec{v_n})]_\gamma \\
+            \mid & \mid &  & \mid
+            \end{bmatrix}
+        \end{align*}
+        
+        \item Let $V$ and $W$ be vectors spaces over $F$. Let $T,U : V \mapsto W$ be linear. 
+        \begin{itemize}
+            \item Using the usual definition of addition and scalar multiplication for functions, $\forall a \in F$, $aT + U$ is linear. Further, $[aT+U]_\beta^\gamma = a[T]_\beta^\gamma + [U]_\beta^\gamma$.
+            \item The set of all linear transformations from $V$ to $W$, denoted $\mathcal{L}(V,W)$, is a vector space over $F$.
+        \end{itemize}
+        
+        \item Interesting result: If dim($V$) = dim($W$) and $T:V \mapsto W$ is linear, then there exists bases $\beta$ of $V$ and $\gamma$ of $W$ such that $[T]_\beta^\gamma$ is diagonal. To see this, take $\beta = \{\vec{b_1}, \hdots, \vec{b_r}, \vec{b_{r+1}}, \hdots, \vec{b_n} \}$ where $\vec{b_1}, \hdots, \vec{b_r}$ is a basis for Ker $T$, and $\vec{b_{r+1}}, \hdots, \vec{b_n}$ extend it to a basis of $V$. Then take $\gamma = \{\vec{c_1}, \hdots, \vec{c_r}, \vec{c_{r+1}}, \hdots, \vec{c_n} \}$ where $\vec{c_i} = T(\vec{b_i})$ for $i \geq r + 1$ and $\vec{c_1}, \hdots, \vec{c_r}$ extend it to a basis of $W$. The $T(\vec{b_i})$ for $i \geq r + 1$ are linearly independent because whenever we have $\sum a_i T(\vec{b_i}) = T( \sum a_i \vec{b_i} ) = 0$, $\sum a_i \vec{b_i}$ must be in Ker $T$. By the construction of $\beta$, this can ony be true if $a_i = 0$. So $[T]_\beta^\gamma$ is diagonal whose diagonal has $r$ zeroes and $n-r$ ones.
+        
+        \item The composition of transformations $T$ and $U$, denoted $TU$, is linear and means $T(U(\vec{v}))$. With regards to the matrices of the transformations, this corresponds to matrix multiplication. Indeed, matrix multiplication was defined for this purpose.
+        
+        \item Matrix multiplication: Let $A$ be a $m \times n$ matrix and $B$ be a $n \times p$ matrix. $AB$ is the $m \times p$ matrix such that $AB_{ij}$ is the sum of the products of the corresponding entries from the $i^{th}$ row of $A$ and $j^{th}$ column of $B$. Precisely,
+        \begin{align*}
+            AB_{ij} = \sum_{k=1}^{n} A_{ik} B_{kj} \hspace{6mm} \text{for } 1 \leq i \leq m, \hspace{1mm} 1 \leq j \leq p 
+        \end{align*}
+        Properties:
+        \begin{enumerate}
+            \item $A(B + C) = AB + AC$
+            \item $a(AB) = (aA)B = A(aB)$ for any scalar $a$
+            \item $IA = A = AI$, where $I$ is the identity matrix
+            \item $A(BC) = (AB)C$
+            \item $(AB)^T = B^TA^T$
+        \end{enumerate}
+        
+        \item Let $V,W,Z$ be finite-dimensional vector spaces with ordered bases $\alpha,\beta,\gamma$, respectively. Let $T: V \mapsto W$ and $U: W \mapsto Z$ be linear. Then
+        \begin{align*}
+            [UT]_\alpha^\gamma = [U]_\beta^\gamma[T]_\alpha^\beta
+        \end{align*}
+        
+        \item Let $V$ and $W$ be finite-dimensional vector spaces with ordered bases $\beta,\gamma$, respectively and let $T: V \mapsto W$ be linear. Then for any $\vec{v} \in V$, 
+        \begin{align*}
+            [T(\vec{v})]_\gamma = [T]_\beta^\gamma[\vec{v}]_\beta
+        \end{align*}
+        
+        \item Let $A$ be an $m \times n$ matrix with entries from $F$. The left-multiplication transformation $L_A: F^n \mapsto F^m$ is linear. Further, $[L_A]_\beta^\gamma = A$.
+        
+        \item If $UT$ is one-to-one, then $T$ is one-to-one. If $UT$ is onto, then $U$ is onto. For both cases, this is illustrated by $T: F \mapsto F^2$ defined by $T(a) = (a, 0)$ and $U: F^2 \mapsto F$ defined by $U((a_1,a_2)) = a_1$.
+        
+        \item If $V=W$, that is, $T: V \mapsto V$, then $T$ is called a \textbf{linear operator} on $V$. The matrix of $T$ with respect to a basis $\beta$ of $V$ is denoted $[T]_\beta$. Such transformations will be the topic of study later.
+    \end{enumerate}
+    
+    \item \textbf{Invertibility and Isomorphisms} 
+    \begin{enumerate}
+        \item Let $V$ and $W$ be vector spaces, and $T:V\mapsto W$ be linear. A function $U:W\mapsto V$ is the \textbf{inverse} of $T$ if $TU = I_W$ and $UT = I_V$. If $T$ is invertible, this inverse is unique and is denoted by $T^{-1}$.
+        \item A function $T$ is invertible iff it is both one-to-one and onto. If $V$ and $W$ are of equal and finite dimension, these conditions are equivalent.
+        
+        \item Analogous to linear transformations, an $n \times n$ matrix $A$ is invertible if there exists an $n \times n$ matrix $B$ such that $AB = BA = I$. This matrix is unique and is denoted $A^{-1}$.
+        
+        \item Properties:
+        \begin{itemize}
+            \item $(AB)^{-1} = B^{-1}A^{-1}$
+            \item $(A^T)^{-1} = (A^{-1})^T$
+            \item $(A^{-1})^{-1} = A$
+        \end{itemize}
+        
+        \item Let $V$ and $W$ be finite-dimensional vector spaces with ordered bases $\beta,\gamma$, respectively and let $T: V \mapsto W$ be linear. Then $T$ is invertible if and only if $[T]_\beta^\gamma$ is invertible. Furthermore, $[T^{-1}]_\gamma^\beta = ([T]_\beta^\gamma)^{-1}$.
+        
+        \item Let $V$ and $W$ be vector spaces. $V$ and $W$ are \textbf{isomorphic} if there exists a linear transformation $T:V \mapsto W$ that is invertible. $T$ is called an isomorphism from $V$ onto $W$.
+        
+        \item $V$ and $W$ are isomorphic iff dim($V$) = dim($W$). To see this, let $\beta = \{\vec{v_1}, \hdots, \vec{v_n}\}$ be a basis for $V$ and $\gamma = \{\vec{w_1}, \hdots, \vec{w_n}\}$ be a basis for $W$, and define $T: V \mapsto W$ where $T(\vec{v_i}) = \vec{w_i}$. Then $[T]_\beta^\gamma$ is the identity matrix, so $T$ is invertible.
+        
+        \item Now we formally show the correspondence between linear transofmations and matrcies: Let $V$ with ordered basis $\beta$ and $W$ with ordered basis $\gamma$ be vector spaces with dimension $n$ and $m$, respectively. The function $\Phi : \mathcal{L}(V,W) \mapsto M_{m \times n}(F)$, defined by $\Phi(T) = [T]_\beta^\gamma$, is an isomorphism. Consequently, dim($\mathcal{L}(V,W)) = mn$.
+    \end{enumerate}
+    
+    \item \textbf{Change of Basis}
+    \begin{enumerate}
+        \item Let $\beta$ and $\gamma$ be two ordered bases for a finite dimensional vector space $V$. The matrix $Q = [I_V]_\gamma^\beta$ is a \textbf{change of coordinate matrix} that changes $\gamma$-coordinates to $\beta$-coordinates.
+        \item $Q$ is invertible and for any $\vec{v} \in V$, $[\vec{v}]_\beta = Q[\vec{v}]_\gamma$. 
+        \item Theorem: Let $T$ be a linear transformation on $V$, $\beta$ and $\gamma$ be ordered bases for $V$, and $Q$ be the change of coordinate matrix from $\gamma$ to $\beta$ coordinates. Then
+        \begin{align*}
+            [T]_\gamma = Q^{-1}[T]_\beta Q
+        \end{align*}
+        \item Let $A$ and $B$ be matrices in $M_{n \times n}(F)$. We say $B$ is \textbf{similar} to $A$, denoted $B \sim A$, if there exists an invertible matrix $Q$ such that $B = Q^{-1}AQ$. This is an equivalence relation (reflexive, symmetric, and transitive), so we say $A$ is similar to $B$.
+        \item A linear transformation $T:V \mapsto F$ is called a \textbf{linear functional} on $V$.
+        \item The \textbf{dual space} of $V$, denoted $V^*$, is the vector space $\mathcal{L}(V,F)$. Since dim($V^*)$ = dim($V$), $V$ and $V^*$ are isomorphic.
+        \item The ordered basis $B^* = \{f_1, \hdots, f_n \}$ of $V^*$, where $f_i$ is the $i^{th}$ coordinate function with respect to $\beta$, is called the \textbf{dual basis} of $\beta$.
+    \end{enumerate}
+    
+    \item \textbf{Elementary Matrices and Systems of Equations}
+    \begin{enumerate}
+        \item The three elementary (row or column) operations on a matrix are (1) interchanging rows, (2) multiplying any row by a nonzero scalar, and (3) adding a scalar multiple of one row to another.
+        \item An $n \times n$ \textbf{elementary matrix} is an invertible matrix obtained by performing an elementary operation on $I_n$. If $A$ is an $m \times n$ matrix and $E$ is an elementary $m \times m$ matrix, then $EA$ is the matrix obtained from $A$ by performing the same elementary row operation as that which produces $E$ from $I_m$. (Same for column operations, except $n \times n$ matrix $E$, and $AE$).
+        \item Every invertible matrix is a product of elementary matrices. This is justification behind the computation of an inverse: If $A$ is an invertible $n \times n$ matrix, then $(A | I_n )$ can be transformed into $(I_n | A^{-1} )$ by a finite number of elementary row operations.
+        \item The image and kernel of linear transformations are analogous to the column space and null space, respectively, of matrices. Some important properties:
+        \begin{itemize}
+            \item rank($A^T$) = rank($A$)
+            \item rank($AB) \leq \min($rank($A$), rank($B$))
+        \end{itemize}
+        \item A system of equations $A\vec{x} = \vec{0}$ is called \textbf{homogeneous}. 
+        \item Let $s$ be any solution to $A\vec{x} = \vec{b}$. The solution set to $A\vec{x} = \vec{b}$ is the sum of the solution set to $A\vec{x} = \vec{0}$ and $s$. To see this, consider two solutions $\vec{s}$ and $\vec{t}$ to the system; then $\vec{t} - \vec{s}$ is in the null space of $A$.
+        \item Let $A\vec{x} = \vec{b}$. $A$ is invertible iff the system has exactly one solution.
+        \item Two systems of linear equations are \textbf{equivalent} if they have the same solution set. Let $A\vec{x}=\vec{b}$ be a system of $m$ linear equations in $n$ unknowns, and $C$ be an invertible $m \times m$ matrix. Then the system $(CA)\vec{x}=C\vec{b}$ is equivalent to $A\vec{x}=\vec{b}$. Hence row operations on a system do not change the solution set (while column operations do).
+        \item A matrix is said to be in \textbf{reduced row echelon form} if the following conditions are satisfied:
+        \begin{enumerate}
+            \item Any row containing a nonzero entry precedes any row in which all entries are zero (if any).
+            \item The first nonzero entry in each row is the only nonzero entry in its column.
+            \item The first nonzero entry in each row is 1 and it occurs in a column to the right of the first nonzero entry in the preceding row.
+        \end{enumerate}
+        \item \textbf{Gaussian elimination} is the most efficient procedure to reduce an augmented matrix to reduced row echelon form. 
+    \end{enumerate}
+    
+    \item \textbf{Determinants}
+    \begin{enumerate}
+        \item If $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ is a $2 \times 2$ matrix over $F$, the determinant of $A$, denoted $\det(A)$, is $ad-bc$.
+        \item Geometric interpretation: The area of the parallelogram determined by $\vec{u}$ and $\vec{v}$, $\vec{u}, \vec{v} \in \mathbb{R}^2$, is $$\left| \det \begin{bmatrix} u_1 & u_2 \\ v_1 & v_2 \end{bmatrix} \right| $$
+        % \item The \textbf{orientation} $O$ of a basis $\beta = \{ \vec{u}, \vec{v} \}$ is determined by
+        % \begin{align*}
+        %     O = \frac{\det \begin{bmatrix} u_1 & u_2 \\ v_1 & v_2 \end{bmatrix}}{\left| \det \begin{bmatrix} u_1 & u_2 \\ v_1 & v_2 \end{bmatrix} \right|}
+        % \end{align*}
+        % which is +1 if you turn $\vec{u}$ anticlockwise by less than $180^\degree$ to get to $\vec{v}$ (we say $\beta$ is right-handed), and -1 if you turn $\vec{u}$ clockwise by less than $180^\degree$ to get to $\vec{v}$.
+        \item The determinant is \textit{not} a linear transformation, but it is a linear function of each row when the other rows are held fixed.
+        \item The determinant of a $n \times n$ matrix can be evaluated by \textbf{Cofactor expansion} along any row or column. For rows, for any $1 \leq i \leq n$, we have
+        \begin{align*}
+            \det(A) = \sum_{j=1}^{n} (-1)^{i+j} A_{ij} \det(\tilde{A}_{ij})
+        \end{align*}
+        where $\tilde{A}_{ij}$ denotes the matrix obtained by removing row $i$ and column $j$ from $A$. The term $(-1)^{i+j} \det(\tilde{A}_{ij})$ is called the $ij$-cofactor of $A$.
+        % \item Alternate interpretation: the determinant is the sum of all $n!$ products of non-attacking rook positions on the $n \times n$ matrix. The sign of each summand is positive if even permutation (even number of inversions, or pairs out of order), and negative otherwise.
+        \item Effects of elementary row (or column) operations on the determinant: If $B$ is a matrix obtained by...
+        \begin{itemize}
+            \item interchanging any two rows of $A$, then $\det(B) = - \det(A)$.
+            \item multiplying any row of $A$ by a nonzero scalar $k$, then $\det(B) = k\det(A)$.
+            \item adding a scalar multiple of one row of $A$ to another row of $A$, then $\det(B)=\det(A)$.
+        \end{itemize}
+        \item Results:
+        \begin{itemize}
+            \item $\det(kA) = k^n\det(A)$
+            \item $\det(A^T) = \det(A)$
+            \item The determinant of an upper triangular matrix is the product of its diagonal entries.
+            \item $A$ is invertible iff $\det(A) \neq 0$. Further, $\det(A^{-1}) = \frac{1}{\det(A)}$.
+        \end{itemize}
+        \item For $A,B \in M_{n \times n}(F)$, $\det(AB) = \det(A)\det(B)$. The proof involves first showing the result if $A$ is an elementary matrix. Then split into cases if $A$ is invertible or not, using the fact that $A$ is a product of elementary matrices if it is.
+        \item A simple consequence is that if $A \sim B$, then $\det(A) = \det(B)$.
+        \item Suppose $M \in M_{n \times n}(F)$ is of the form
+        $$M = \begin{bmatrix} A & B \\ O & C \end{bmatrix}$$ where $A$ and $C$ are square matrices and $O$ is the zero matrix. Then $\det(M) = \det(A)\det(C)$. \textit{Proof:} Let 
+        \begin{align*}
+            N = \begin{bmatrix} A & B \\ O & I \end{bmatrix}, \hspace{5mm} N' = \begin{bmatrix} I & O \\ O & C \end{bmatrix}
+        \end{align*}
+        Then $M=N'N$. Since $\det(N)=\det(A)$ (apply cofactor expansion along bottom row), and $\det(N')=\det(C)$, the proof is complete.
+        % \item \textbf{Cramer's Rule:} Let $A\vec{x} = \vec{b}$ be a linear system of equations. If $\det(A) \neq 0$, then the system has a unique solution, and for each $1 \leq k \leq n$,
+        % $$x_k = \frac{\det(M_k)}{\det(A)}$$
+        % where $M_k$ is the matrix obtained from $A$ by replacing column $k$ of $A$ by $\vec{b}$.
+        \item If $A$ is an $n \times n$ matrix whose diagonal entries are $p$ and all off-diagonal entries are $q$, $\det(A) = (p-q)^{n-1}(p+(n-1)q)$.
+        \item If $A \in M_{n \times n}(\mathbb{R})$ and the rows of $A$ are $a_1, \hdots, a_n$, then $| \det(A) |$ is the $n$-dimensional volume of the parallelepiped having vectors $a_1, \hdots, a_n$ as adjacent sides.
+    \end{enumerate}
+    
+    \item \textbf{Eigenvalues and Eigenvectors}
+    \begin{enumerate}
+        \item The discussion in this section applies to matrices and linear operators interchangeably; consider $A=[T]_\beta$.
+        \item Let $T$ be a linear operator on $V$. A \textit{nonzero} vector $\vec{v} \in V$ is an \textbf{eigenvector} of $T$ if there exists a scalar $\lambda$ such that $T(\vec{v}) = \lambda \vec{v}$. The scalar $\lambda$ is called the \textbf{eigenvalue} corresponding to eigenvector $\vec{v}$.
+        \item A linear operator $T$ on a finite-dimensional vector space $V$ is \textbf{diagonalizable} iff there is an ordered basis $\beta$ for $V$ consisting of eigenvectors of $T$. If so, $[T]_\beta$ is a diagonal matrix.
+        \item Computation of Eigenvalues: Let $A \in M_{n \times n}(F)$. Then a scalar $\lambda$ is an eigenvalue of $A$ iff $\det(A - \lambda I_n)=0$. \textit{Proof:} $\lambda$ is an eigenvalue of $A$ iff there exists a nonzero vector $\vec{v} \in F^n$ such that $A\vec{v} = \lambda \vec{v}$, that is $(A - \lambda I_n)\vec{v}=\vec{0}$. This is true iff $A - \lambda I_n$ is not invertible, which is equivalent to the statement $\det(A - \lambda I_n)=0$.
+        \item The polynomial $\det(A - \lambda I_n)$, denoted char$_A(\lambda)$, is called the \textbf{characteristic polynomial} of $A$. It is a polynomial of degree $n$ with leading coefficient $(-1)^n$. The roots are eigenvalues, so $A$ has at least 0 and at most $n$ distinct eigenvalues.
+        \item Note on computing the characteristic polynomial: recall that adding scalar multiples of rows or columns to each other does not affect the determinant. Use this to zero out as many matrix entries as possible. 
+        \item The second term of the characteristic polynomial is $(-1)^{n-1} \lambda^{n-1}$ tr$(A)$ and the last term is $\det(A)$.
+        \item Properties:
+        \begin{itemize}
+            \item char$_A(\lambda)$ = char$_{A^T}(\lambda)$
+            \item If $A \sim B$, then char$_A(\lambda)$ = char$_{B}(\lambda)$
+        \end{itemize}
+        \item Computation of Eigenvectors: A nonzero vector $\vec{v} \in V$ is an eigenvector of $A$ corresponding to $\lambda$ iff $\vec{v} \in \mathcal{N}(A-\lambda I_n)$. 
+        \item Examples for transformations on $\mathbb{R}^2$: reflection across a line has eigenvalues 1 and -1, projection onto a line has eigenvalues 0 and 1, and rotation by $\theta$ has no (real) eigenvalues. The following matrix rotates a vector counterclockwise by $\theta$:
+        \begin{align*}
+            \begin{bmatrix}
+            \cos{\theta} & -\sin{\theta} \\
+            \sin{\theta} & \cos{\theta}
+            \end{bmatrix}
+        \end{align*}
+         
+        \item Let $A \in M_{n \times n}(F)$
+        \begin{itemize}
+            \item $A$ has $n$ eigenvalues, \textit{counting each according to their multiplicity}.
+            \item The sum of the $n$ eigenvalues of $A$ is the same as the trace of $A$.
+            \item The product of the $n$ eigenvalues of $A$ is the same as the determinant of $A$.
+        \end{itemize}
+    \end{enumerate}
+    
+    \item \textbf{Diagonalizability}
+    \begin{enumerate}
+        \item A set of eigenvectors of $T$, each corresponding to a different eigenvalue of $T$, is linearly independent. (\textit{Proof}: Proceed with induction on $k$, the number of eigenvectors. In the inductive step, apply $T-\lambda_{k+1}I$ to both sides of $a_1\vec{v_1} + \hdots + a_{k+1}\vec{v}_{k+1} = \vec{0}$.) A consequence is that any linear operator with $n$ distinct eigenvalues is diagonalizable. 
+        \item Let $\lambda$ be an eigenvalue of a linear operator or matrix with characteristic polynomial $f(t)$. The \textbf{algebraic multiplicity} of $\lambda$ is the largest postive integer $k$ for which $(t-\lambda)^k$ is a factor of $f(t)$.
+        \item Let $\lambda$ be an eigenvalue of $T$. The subspace $E_\lambda = \{ \vec{v} \in V \mid T(\vec{v}) = \lambda \vec{v} \} = \mathcal{N}([T]_\beta - \lambda I_n)$ is called the \textbf{eigenspace} of $T$ associated with $\lambda$. This subspace consists of the zero vector and the eigenvectors of $T$ corresponding to $\lambda$. 
+        \item Let $\lambda$ be an eigenvalue of $T$ with algebraic multiplicity $m$. Then $1 \leq \dim(E_\lambda) \leq m$. $\dim(E_\lambda)$ is called the \textbf{geometric multiplicity} of $\lambda$.
+        \item Let $T$ be a linear operator on $V$ whose characteristic polynomial \textit{splits}, i.e., factorizes into linear factors over $F$ (equivalently, the algebraic multiplicites sum to $\dim{V}$), and $\lambda_1, \hdots, \lambda_k$ be the distinct eigenvalues of $T$. Then
+        \begin{enumerate}
+            \item $T$ is diagonalizable iff the algebraic multiplicity of $\lambda_i$ is equal to $\dim(E_{\lambda_i})$ for all $i$.
+            \item If $T$ is diagonalizable and $\beta_i$ is an ordered basis for $E_{\lambda_i}$ for each $i$, then $\beta = \beta_1 \cup \beta_2 \cup \hdots \cup \beta_k$ is an ordered basis for $V$ consisting of eigenvectors of $T$.
+        \end{enumerate}
+        
+        \item Note that every polynomial over $\mathbb{C}$ splits, so every transformation over $\mathbb{C}$ has an eigenvalue.
+        \item A more succinct condition for diagonalizability is as follows: a linear operator $T$ on a finite-dimensional vector space $V$ is diagonalizable iff $V$ is the direct sum of the eigensapces of $T$. 
+        \item It follows that if $A \in M_{n \times n}(F)$ is a diagonalizable matrix, then $A=QDQ^{-1}$, where $Q$ has as its columns the vectors in a basis of eigenvectors of $A$, and $D$ has as its $i^{th}$ diagonal entry the eigenvalue of $A$ corresponding to the $i^{th}$ column of $Q$.
+        \begin{align*}
+            A=\begin{bmatrix} 
+            | & & | \\
+            \vec{v_1} & \cdots & \vec{v_n} \\
+            | & & |
+            \end{bmatrix}
+            \begin{bmatrix}
+            \lambda_1 & \cdots & 0 \\
+            \vdots & \ddots & \vdots \\
+            0 & \cdots & \lambda_n
+            \end{bmatrix}
+            \begin{bmatrix} 
+            | & & | \\
+            \vec{v_1} & \cdots & \vec{v_n} \\
+            | & & |
+            \end{bmatrix}^{-1}
+        \end{align*}
+        
+        \item Two linear operators $T$ and $U$ on $V$ are \textbf{simultaneously diagonalizable} if there exists an ordered basis $\beta$ for $V$ such that $[T]_\beta$ and $[U]_\beta$ are diagonal matrices. Let $T$ and $U$ be diagonalizable. Then $T$ and $U$ are simultaneously diagonalizable iff $T$ and $U$ commute (i.e., $TU=UT$).
+        
+        \item Diagonalization can be used to efficiently compute powers of matrices. For example, consider the Fibonacci series. Let $\vec{v}_n = \begin{bmatrix} F_n \\ F_{n+1} \end{bmatrix}$, where $F_n$ is the $n^{th}$ Fibonacci number (e.g., $\vec{v}_0 = \begin{bmatrix} 0 & 1 \end{bmatrix}^T$). Observe $\vec{v}_n = A^n\vec{v}_0$, where $A = \begin{bmatrix} 0 & 1 \\ 1 & 1 \end{bmatrix}$. Diagonalizing $A$ yields $$A^n = \frac{1}{\sqrt{5}} 
+        \begin{bmatrix} 
+        1 & 1 \\ 
+        \lambda_1 & \lambda_2 
+        \end{bmatrix}
+        \begin{bmatrix}
+        \lambda_1^n & 0 \\ 0 & \lambda_2^n
+        \end{bmatrix}
+        \begin{bmatrix}
+        \lambda_2 & -1 \\ -\lambda_1 & 1 
+        \end{bmatrix}$$
+        where $\lambda_1 = \frac{1 - \sqrt{5}}{2}$ and $\lambda_2 = \frac{1 + \sqrt{5}}{2}$. Simplifying and multiplying by $\vec{v}_0$ gives $$\vec{v}_n = \frac{1}{\sqrt{5}} \begin{bmatrix} \lambda_2^n - \lambda_1^n \\[6 pt] \lambda_2^{n+1}-\lambda_1^{n+1} \end{bmatrix}$$
+        Hence a direct formula for $F_n$ is 
+        $$F_n = \frac{1}{\sqrt{5}} \left[ \left( \frac{1 + \sqrt{5}}{2} \right)^n  - \left( \frac{1 - \sqrt{5}}{2} \right)^n \right]$$
+        
+        \item We consider another application of diagonalization: solving systems of differential equations. Consider the system
+        \begin{align*}
+            x_1' &= 3x_1 + x_2 + x_3 \\
+            x_2' &= 2x_1 + 4x_2 + 2x_3 \\
+            x_3' &= -x_1 - x_2 + x_3
+        \end{align*}
+        where for each $i$, $x_i = x_i(t)$ is a differentiable real-valued function of $t$. Let 
+        \begin{align*}
+            A = 
+            \begin{bmatrix}
+            3 & 1 & 1 \\
+            2 & 4 & 2 \\
+            -1 & -1 & 1
+            \end{bmatrix}, \hspace{2mm}
+            x = 
+            \begin{bmatrix} 
+            x_1(t) \\ x_2(t) \\ x_3(t)
+            \end{bmatrix}, \hspace{2mm}
+            x' = 
+            \begin{bmatrix} 
+            x_1'(t) \\ x_2'(t) \\ x_3'(t)
+            \end{bmatrix}
+        \end{align*}
+        Then $Ax = x'$. $A$ can be diagonalized into $QDQ^{-1}$, where
+        \begin{align*}
+            Q = 
+            \begin{bmatrix}
+            -1 & 0 & -1 \\
+            0 & -1 & -2 \\
+            1 & 1 & 1
+            \end{bmatrix}, \hspace{2mm}
+            D = 
+            \begin{bmatrix}
+            2 & 0 & 0 \\
+            0 & 2 & 0 \\
+            0 & 0 & 4
+            \end{bmatrix}
+        \end{align*}
+        Hence $x' = QDQ^{-1}$, or equivalently, $Q^{-1}x' = DQ^{-1}x$. Now let $y = Q^{-1}x$. Then $y' = Q^{-1}x' = Dy$. From this we get
+        \begin{align*}
+            y_1' = 2y_1 \\
+            y_2' = 2y_2 \\
+            y_3' = 4y_3
+        \end{align*}
+        The general solution to $x' = \lambda x$ is $x = ce^{\lambda t}$. So we have $y_1 = c_1e^{2t}, y_2 = c_2e^{2t}, y_3 = c_3e^{4t}$. Finally, $x = Qy$, so we get
+        \begin{align*}
+            x(t) = e^{2t} \left( c_1 \begin{bmatrix} -1 \\ 0 \\ 1 \end{bmatrix} + c_2 \begin{bmatrix} 0 \\ -1 \\ 1 \end{bmatrix} \right) + e^{4t} \left( c_3 \begin{bmatrix} -1 \\ -2 \\ 1 \end{bmatrix} \right) 
+        \end{align*}
+        More generally, if $A$ is the coefficient matrix of a system of differential equations, and $A$ is diagonalizable with $k$ distinct eigenvalues, the general solution is $x(t) = e^{\lambda_1 t}\vec{z_1} + e^{\lambda_2 t}\vec{z_2}+\hdots+e^{\lambda_k t}\vec{z_k}$ where $\vec{z_i} \in E_{\lambda_i}$. 
+    \end{enumerate}
+    
+    \item \textbf{Invariant Subspaces}
+    \begin{enumerate}
+        \item Throughout this section, let $T$ be a linear operator on a vector space $V$. A subspace $W$ of $V$ is called a \textbf{T-invariant subspace} of $V$ if $T(W) \subseteq W$, that is, if $T(\vec{v}) \in W$ for all $\vec{v} \in W$.
+        \item Examples of T-invariant subspaces include $\{ \vec{0} \}$, $V$, Im $T$, Ker $T$, and $E_\lambda$ for any eigenvalue $\lambda$ of $T$.
+        \item If $W$ and $Z$ are $T$-invariant subspaces of $V$, then so is $W+Z$ and $W \cap Z$.
+        \item For any polynomial $g(x)$, if $W$ is $T$-invariant, $W$ is also $g(T)$-invariant.
+        \item Let $\vec{x}$ be a nonzero vector in $V$. The subspace 
+        \begin{align*}
+            W = \text{Span}(\{ \vec{x}, T(\vec{x}), T^2(\vec{x}), \hdots \})
+        \end{align*}
+        is called the \textbf{T-cyclic subspace of $V$ generated by $\vec{x}$}. $W$ is the smallest T-invariant subspace of $V$ containing $\vec{x}$.
+        \item Let $W$ be a T-invariant subspace of $V$. The \textit{restriction}, denoted $T_W$, of $T$ to $W$ is a linear operator on $W$. 
+        \item Theorem: Let $W$ be a T-invariant subspace of $V$. Then the characteristic polynomial of $T_W$ divides the characteristic polynomial of $T$. \textit{Proof:} Choose an ordered basis $\gamma$ for $W$, and extend it to an ordered basis $\beta$ of $V$. Let $B_1 = [T_W]_\gamma$. Then $[T]_\beta$ is of the form $\begin{bmatrix} B_1 & B_2 \\ O & B_3 \end{bmatrix}$, and char$_T(\lambda) = \text{char}_{T_W}(\lambda) \det(B_3-\lambda I)$. Thus $\text{char}_{T_W}(\lambda)$ divides $\text{char}_{T}(\lambda)$.
+        \item Theorem: Let $W$ denote the T-cyclic subspace of $V$ generated by a nonzero vector $\vec{v} \in V$, and $k = \dim(W)$. Then
+        \begin{enumerate}
+            \item $\{ \vec{v}, T(\vec{v}), T^2(\vec{v}), \hdots, T^{k-1}(\vec{v}) \}$ is a basis for $W$.
+            \item If $a_0\vec{v} + a_1T(\vec{v}) + \hdots + a_{k-1}T^{k-1}(\vec{v}) + T^k(\vec{v}) = \vec{0}$, then the characteristic polynomial of $T_W$ is $f(t) = (-1)^k(a_0 + a_1t + \hdots + a_{k-1}t^{k-1} + t^k$).
+        \end{enumerate}
+        \item \textbf{Caley-Hamilton Theorem:} Let $f(t)$ be the characteristic polynomial of $T$. Then $f(T) = T_0$, the zero transformation. That is, $T$ satisfies its characteristic equation. An analagous result holds for matrices.
+        \item An implication of this theorem is that the set $\{ I, T, T^2, \hdots, T^k \}$ is linearly dependent if $k \geq n$, since there is a nontrivial linear relation between $I, T, T^2, \hdots, T^n$ (the first coefficient of the characteristic polynomial is $(-1)^n \neq 0$). An example of an operator $T$ that remains linearly independent up to $T^{n-1}$ is one whose matrix has distinct entries on the diagonal. 
+        % \begin{align*}
+        %     \begin{bmatrix} 
+        %     0 & 1 & 0 & \hdots & 0 \\
+        %     0 & 0 & 1 & \hdots & 0 \\
+        %     0 & 0 & 0 & \ddots & 0 \\
+        %     0 & 0 & 0 & \hdots & 1 \\
+        %     0 & 0 & 0 & \hdots & 0 
+        %     \end{bmatrix}
+        % \end{align*}
+    \end{enumerate}
+    
+    \item \textbf{The Jordan Canonical Form}
+    \begin{enumerate}
+        \item Now we consider matrix representations for nondiagonalizable operators, called \textit{canonical forms}. The Jordan canonical form only requires that the characteristic polynomial splits, which recall always occurs if the underlying field is algebraically closed (e.g., the field of complex numbers).
+        \item Overview: If a matrix is not diagonalizable, then at least one eigenspace is too ``small"; so we extend the concept of an eigenspace to a \textit{generalized} eigenspace. From these generalized eigenspaces, we select ordered bases whose union is an ordered basis $\beta$ of $V$ such that 
+        \begin{align*}
+            [T]_\beta = 
+            \begin{bmatrix}
+            A_1 & O & \cdots & O \\
+            O & A_2 & \cdots & O \\
+            \vdots & \vdots & \ddots & \vdots \\
+            O & O & \cdots & A_k
+            \end{bmatrix}
+        \end{align*}
+        where $O$ is the zero matrix and each $A_i$ is a square matrix of the form
+        \begin{align*}
+            \begin{bmatrix}
+            \lambda & 1 & 0 & \cdots & 0 \\
+            0 & \lambda & 1 & \cdots & 0 \\
+            \vdots & \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & 0 & \cdots & \lambda
+            \end{bmatrix}
+        \end{align*}
+        for some eigenvalue $\lambda$ of $T$. Such a matrix $A_i$ is called a \textbf{Jordan block} corresponding to $\lambda$. The matrix $[T]_\beta$ is called a \textbf{Jordan canonical form} of $T$, and $\beta$ is a \textbf{Jordan canonical basis} for $T$. Notice $[T]_\beta$ is diagonal iff each $A_i$ is of the form $\begin{bmatrix} \lambda \end{bmatrix}$.
+        \item Every linear operator whose characteristic polynomial splits has a Jordan canonical form that is unique up to the order of the Jordan blocks.
+        \item Let $T$ be a linear operator on $V$. A nonzero vector $\vec{v} \in V$ is called a \textbf{generalized eigenvector} of $T$ corresponding to eigenvalue $\lambda$ if $(T - \lambda I)^p(\vec{v})=\vec{0}$ for some sufficiently large positive integer $p$. Note that eigenvectors satisfy this condition for $p=1$.
+        
+        \item The \textbf{generalized eigenspace of $T$} corresponding to $\lambda$, denoted $K_\lambda$, is defined by
+        \begin{align*}
+            K_\lambda = \{ \vec{x} \in V \mid (T - \lambda I)^p(\vec{x}) = \vec{0} \text{  for some $p$}\}
+        \end{align*}
+        This subspace consists of the zero vector and the generalized eigenvectors of $T$ corresponding to $\lambda$. Alternatively, $K_\lambda = \mathcal{N}((T-\lambda I)^m)$ where $m$ is the algebraic multiplicity of $\lambda$.
+        
+        \item $K_\lambda$ is a $T$-invariant subspace of $V$ containing $E_\lambda$. \textit{Proof:} To see $K_\lambda$ is a subspace, consider $\vec{x}, \vec{y} \in K_\lambda$. Then there exist $p$ and $q$ such that $(T-\lambda I)^p(\vec{x})=(T-\lambda I)^q(\vec{y}) = \vec{0}$. Therefore 
+        \begin{align*}
+        \hspace{-4mm}
+            (T-\lambda I)^{p+q}(a\vec{x}+b\vec{y})   &= a(T-\lambda I)^q(\vec{0}) + b(T-\lambda I)^p(\vec{0}) \\
+            &= \vec{0}
+        \end{align*}
+        Hence $a\vec{x} + b\vec{y} \in K_\lambda$. To see $K_\lambda$ is $T$-invariant, consider $\vec{x} \in K_\lambda$. Then there exists $p$ such that $(T-\lambda I)^p(\vec{x})=\vec{0}$. Then
+        \begin{align*}
+            (T-\lambda I)^p T(\vec{x}) = T(T-\lambda I)^p (\vec{x}) = T(\vec{0}) = \vec{0}
+        \end{align*}
+        so that $T(\vec{x}) \in K_\lambda$. Here, we used the fact that $T$ commutes with $(T-\lambda I)^m$ for any linear operator $T$ and $m \geq 0$.
+        
+        \item The restriction of $T$ onto $K_\lambda$ has only one eigenvalue $\lambda$. \textit{Proof:} Let $\mu$ be another eigenvalue of $T_{K_\lambda}$. Then $(T-\mu I)\vec{x}=\vec{0}$ for some eigenvector $\vec{x} \in K_\lambda$. Let $p$ be the smallest integer for which $(T-\lambda I)^p (\vec{x}) = \vec{0}$, and let $\vec{y} = (T-\lambda I)^{p-1} (\vec{x})$. Hence $y \in E_\lambda$. Furthermore, $(T - \mu I)(\vec{y}) = (T-\mu I)(T-\lambda I)^{p-1}(\vec{x}) = (T-\lambda I)^{p-1}(T-\mu I)(\vec{x}) = \vec{0}$ so that $\vec{y} \in E_\mu$. But $E_\lambda \cap E_\mu = \{ \vec{0} \}$, and thus $\vec{y}=\vec{0}$ and $\vec{x}=\vec{0}$, contradicting the assumption $\vec{x}$ was an eigenvector corresponding to $\mu$.
+        \item By a similar argument, we see if $\alpha \neq \beta$, then $K_\alpha \cap K_\beta = \{ \vec{0} \}$. Therefore $V$ can be written as a direct sum of the generalized eigenspaces of $T$, each one having dimension equal to the algebraic multiplicty of the corresponding eigenvalue.
+        
+        % \item Let $T$ be a linear operator whose characteristic polynomial splits, and let $\lambda_1, \hdots, \lambda_k$ be the distinct eigenvalues of $T$ with corresponding algebraic multiplicities $m_1, \hdots, m_k$. Let $\beta_i$ be an ordered basis for $K_{\lambda_i}$ for $1 \leq i \leq k$. Then
+        % \begin{enumerate}
+        %     \item $\beta_i \cap \beta_j = \emptyset$ for $i \neq j$.
+        %     \item $\beta = \beta_1 \cup \hdots \cup \beta_k$ is an ordered basis for $V$.
+        %     \item dim($K_{\lambda_i}) = m_i$ for all $i$.
+        % \end{enumerate}
+         
+        % \item A new condition for diagonalizability follows: $T$ is diagonalizable iff the characteristic polynomial splits and $E_\lambda = K_\lambda$ for every eigenvalue $\lambda$ of $T$.
+        \item Let $\vec{x}$ be a generalized eigenvector of $T$ corresponding to eigenvalue $\lambda$. Let $p$ be the smallest postive integer for which $(T-\lambda I)^p(\vec{x}) = \vec{0}$. The length-$p$ cycle given by the ordered set
+        \begin{align*}
+            \{ (T-\lambda I)^{p-1}(\vec{x}), \hdots, (T-\lambda I)(\vec{x}), \vec{x} \}
+        \end{align*}
+        is called a \textit{cycle of generalized eigenvectors} of $T$ corresponding to $\lambda$. $(T-\lambda I)^{p-1}(\vec{x})$ is called the \textit{initial vector} and $\vec{x}$ is called the \textit{end vector}. Notice that the initial vector is the only eigenvector in the cycle, and that the cycle is linearly independent.
+        
+        \item Suppose $\beta$ is a basis for $V$ such that $\beta$ is a disjoint union of cycles of generalized eigenvectors of $T$. Then
+        \begin{enumerate}
+            \item For each cycle $\gamma$ of generalized eigenvectors in $\beta$, $W=\text{Span}(\gamma)$ is $T$-invariant, and $[T_W]_\gamma$ is a Jordan block.
+            \item $\beta$ is a Jordan canonical basis for $V$.
+        \end{enumerate}
+        \item The ``dot" diagram of the JCF of a matrix is a table of dots that represent the cycles of generalized eigenvectors for each eigenvalue. For each eigenvalue, the number of columns is the number of Jordan blocks, and the total number of dots is the corresponding algebraic multiplicity.
+        % \item We now have the tools to develop a computational method of finding the Jordan canonical form.
+        \item To Jordanalize a matrix $A$, it suffices to find a basis for each generalized eigenspace consisting of cycles of generalized eigenvectors. For simple cases, find a basis for each eigenspace, then, guided by the dot diagram, continually solve $(T-\lambda I)\vec{v}_{i+1} = \vec{v}_i$ to extend cycles as necessary. Finally place the bases together to form a Jordan canonical basis $\beta$; the matrix $Q$ whose columns are the vectors of $\beta$ will be such that $A=QJQ^{-1}$. 
+        \item This top-down method will not always work, as we might not be choosing eigenvectors at the top of a chain. A more robust method is as follows: for each eigenvalue $\lambda_i$, set $U=T-\lambda_i I$. Compute $d_j = \text{dim Ker}(U)^j$ for $1 \leq j \leq l$, where $l$ is the stabilizing constant. For a given eigenvalue, $d_j$ counts the number of dots in the first $j$ rows. Construct a basis starting from the bottom row; after taking the images of the basis vectors on row $j+1$ as the leftmost basis vectors in row $j$, we need $(d_j-d_{j-1}) - (d_{j+1}-d_{j}) = 2d_j-d_{j-1}-d_{j+1}$ more basis vectors in $\text{Ker}(U^j)$ to complete the basis for row $j$. This method shows that the JCF exists and is unique.
+        \item The Caley-Hamilton theorem follows more easily using the Jordan canonical form. If $A=QJQ^{-1}$ and $f(t)=\text{char}_A(t)$, then it can be shown that $f(A)=Qf(J)Q^{-1}$. Hence it suffices to show that $f(J)=O$, the zero matrix. Observe that $f(J)=\pm(J-\lambda_1 I)^{m_1}(J-\lambda_2 I)^{m_2}\cdots(J-\lambda_k I)^{m_k}$, i.e., the product of the characteristic polynomials of the restrictions of $T$ to the generalized eigenspaces of $T$. Since $(J-\lambda_j I)^{m_j}(\vec{v})=\vec{0}$ for $\vec{v} \in K_{\lambda_j}$, $f(J)$ is the zero operator on all $K_{\lambda_j}$. Since $V$ is the direct sum of the subspaces $K_{\lambda_j}$ for all $j$, it follows that $f(J)=O$.
+    \end{enumerate}
+    
+    \item \textbf{Inner Products}
+    \begin{enumerate}
+        \item If $z=a+bi \in \mathbb{C}$, we define the complex conjugate $\overline{z}=a-bi$. The following properties hold:
+        \begin{itemize}
+            \item $z + \overline{z} = 2a = 2\Re(z)$ (real part of $z$)
+            \item $z - \overline{z} = 2bi = 2i\Im(z)$ (imaginary part of $z$)
+            \item $z \cdot \overline{z} = a^2+b^2$
+            \item $\overline{z_1 + z_2} = \overline{z_1} + \overline{z_2}$
+            \item $\overline{z_1 \cdot z_2} = \overline{z_1} \cdot \overline{z_2}$
+            \item $|z| = \sqrt{a^2 + b^2}$
+        \end{itemize}
+        \item Let $V$ be a vector space over $F$ ($\mathbb{R}$ or $\mathbb{C}$). An \textbf{inner product} on $V$, denoted $\langle \vec{x}, \vec{y} \rangle$, is a function that assigns a scalar to every ordered pair of vectors $\vec{x}, \vec{y} \in V$ such that the following hold:
+        \begin{enumerate}
+            \item $\langle \vec{x} + \vec{z}, \vec{y} \rangle = \langle \vec{x}, \vec{y} \rangle + \langle \vec{z}, \vec{y} \rangle$
+            \item $\langle c\vec{x}, \vec{y} \rangle = c\langle \vec{x}, \vec{y} \rangle$
+            \item $\langle \vec{x}, \vec{x} \rangle > 0$ if $\vec{x} \neq \vec{0}$
+            \item $\overline{\langle \vec{x}, \vec{y} \rangle} = \langle \vec{y}, \vec{x} \rangle$
+        \end{enumerate}
+        \item Note that the last requirement reduces to $\langle \vec{x}, \vec{y} \rangle = \langle \vec{y}, \vec{x} \rangle$ if $F=\mathbb{R}$. 
+        \item For $\vec{x} = (a_1, \hdots, a_n)$, $\vec{y} = (b_1, \hdots, b_n) \in F^n$, define 
+        \begin{align*}
+            \langle \vec{x}, \vec{y} \rangle = \sum_{i=1}^n a_i\overline{b_i}
+        \end{align*}
+        This is called the \textbf{standard inner product} on $F^n$. For $F=\mathbb{R}$, the conjugation is not needed and this inner product is called the \textit{dot product}, usually denoted $\vec{x} \cdot \vec{y}$.
+        \item Example: Let $V$ be the vector space of real-valued continuous functions on the interval $[0,1]$. For $f,g\in V$, $\langle f, g \rangle = \int_0^1 f(t)g(t) \,dt$ is an inner product.
+        \item Let $A \in M_{m \times n}(F)$. Define the \textbf{conjugate transpose} or \textbf{adjoint} of $A$ to be the $n \times m$ matrix $A^*$ such that $(A^*)_{ij} = \overline{A_{ji}}$ for all $i,j$. That is, $A^* = \overline{A^T}$.
+        \item For $V = M_{n \times n}(F)$, the inner product defined by $\langle A, B \rangle = \text{tr}(B^*A)$ for $A,B\in V$ is called the \textbf{Frobenius inner product}.
+        \item A vector space $V$ over $F$ with a specific inner product is called an \textbf{inner product space}. Note that two distinct inner products on a given vector space yield two distinct inner product spaces. In addition to the properties required of an inner product, the following are true for any inner product space:
+        \begin{enumerate}
+            \item $\langle \vec{x}, \vec{y} + \vec{z} \rangle = \langle \vec{x}, \vec{y} \rangle + \langle \vec{x}, \vec{z} \rangle$
+            \item $\langle \vec{x}, c\vec{y} \rangle = \overline{c}\langle \vec{x}, \vec{y} \rangle$
+            \item $\langle \vec{x}, \vec{0} \rangle = \langle \vec{0}, \vec{x} \rangle = \vec{0}$
+            \item $\langle \vec{x}, \vec{x} \rangle = \vec{0}$ iff $\vec{x} = \vec{0}$
+            \item If $\langle \vec{x}, \vec{y} \rangle = \langle \vec{x}, \vec{z} \rangle$ for all $\vec{x} \in V$, then $\vec{y}=\vec{z}$ \\
+            \textit{Proof:} Let $\beta$ be a basis of $V$. First we show if $\langle \vec{x}, \vec{z} \rangle = 0$ for all $\vec{z} \in \beta$, then $\vec{x}=\vec{0}$. Write $\vec{x}=\sum_{i=1}^n a_i\vec{z}_i$. Then $\langle \vec{x}, \vec{x} \rangle = \langle \vec{x}, \sum_{i=1}^n a_i\vec{z}_i \rangle = \sum_{i=1}^n \overline{a_i} \langle \vec{x}, \vec{z}_i \rangle = 0$, which is true iff $\vec{x}=\vec{0}$. Substituting $\vec{x} - \vec{y}$ for $\vec{x}$ yields the result.
+        \end{enumerate}
+        
+        
+        \item Let $V$ be an inner product space. For $\vec{x} \in V$, define the \textbf{norm} or \textbf{length} of $\vec{x}$ by $\| \vec{x} \| = \sqrt{ \langle \vec{x}, \vec{x} \rangle }$. In $\mathbb{R}^n$, this is the \textit{magnitude} of a vector. For all $\vec{x}, \vec{y} \in V$ and $c \in F$, the following hold:
+        \begin{enumerate}
+            \item $\| c\vec{x} \| = |c| \cdot \| \vec{x} \|$
+            \item $\| \vec{x} \| \geq 0$ with equality iff $\vec{x}=\vec{0}$
+        \end{enumerate}
+        
+        \item All inner product spaces induce a norm, but we can also define a \textit{normed space} as a vector space endowed with a norm satisfying the properties above. Some specific norms on $\mathbb{R}^n$ include
+        \begin{align*}
+            &\| \vec{x} \|_1 = \sum_{i=1}^n | x_i | \\
+            &\| \vec{x} \|_2 = \sqrt{\sum_{i=1}^n  x_i^2 } \\
+            &\| \vec{x} \|_p = \left( \sum_{i=1}^n  |x_i|^p  \right)^\frac{1}{p} \\
+            &\| \vec{x} \|_\infty = \max_{1 \leq i \leq n} |x_i|
+        \end{align*}
+        Observe that the $1$- and $2$-norms are special cases of the $p$-norm, and the $\infty$-norm is the limit of the $p$-norm as $p$ tend to infinity.
+        \item Any norm induces a distance metric on $V$, given by $\| \vec{x} - \vec{y} \|$.
+        
+        \item \textit{Cauchy-Schwarz Inequality}: $| \langle \vec{x}, \vec{y} \rangle | \leq \| \vec{x} \| \cdot \| \vec{y} \|$ (equality iff $\vec{x}$ and $\vec{y}$ are linearly dependent)\\ \textit{Proof:} Assume $\vec{y} \neq \vec{0}$, since result is immediate otherwise. For any $c \in F$, we have
+        \begin{align*}
+            0 \leq \| \vec{x} - c\vec{y} \|^2 
+            &= \langle \vec{x} - c\vec{y}, \vec{x} - c\vec{y} \rangle \\
+            &= \langle \vec{x}, \vec{x} - c\vec{y} \rangle -c \langle\vec{y}, \vec{x} -c\vec{y} \rangle \\
+            &= \langle \vec{x}, \vec{x} \rangle - \overline{c} \langle \vec{x}, \vec{y} \rangle - c \langle \vec{y}, \vec{x} \rangle + c\overline{c} \langle \vec{y}, \vec{y} \rangle
+        \end{align*}
+        Taking $c = \frac{\langle \vec{x}, \vec{y} \rangle}{\langle \vec{y}, \vec{y} \rangle}$, the inequality becomes 
+        \begin{align*}
+            0 \leq \langle \vec{x}, \vec{x} \rangle - \frac{| \langle \vec{x}, \vec{y} \rangle |^2}{\langle \vec{y}, \vec{y} \rangle} = \| \vec{x} \|^2 - \frac{| \langle \vec{x}, \vec{y} \rangle |^2}{\| \vec{y} \|^2}
+        \end{align*}
+        from which the result follows.
+        
+        \item \textit{Triangle Inequality}: $\| \vec{x} + \vec{y} \| \leq \| \vec{x} \| + \| \vec{y} \|$
+        (equality iff $\vec{x}$ and $\vec{y}$ are positive scalar multiples)\\ \textit{Proof:}
+        \begin{align*}
+            \| \vec{x} + \vec{y} \|^2 
+            &= \langle \vec{x} + \vec{y}, \vec{x} + \vec{y} \rangle \\
+            &= \langle \vec{x}, \vec{x} \rangle + \langle \vec{y}, \vec{x} \rangle + \langle \vec{x}, \vec{y} \rangle + \langle \vec{y}, \vec{y} \rangle \\
+            &= \| \vec{x} \|^2 + 2\Re \langle \vec{x}, \vec{y} \rangle + \| \vec{y} \|^2 \\
+            &\leq \| \vec{x} \|^2 + 2 | \langle \vec{x}, \vec{y} \rangle | + \| \vec{y} \|^2 \\
+            &\leq \| \vec{x} \|^2 + 2 \| \vec{x} \| \cdot \| \vec{y} \| + \| \vec{y} \|^2 \\
+            &= (\| \vec{x} \| + \| \vec{y} \|)^2
+        \end{align*}
+        
+        \item Let $V$ be an inner product space. Two vectors $\vec{x}, \vec{y} \in V$ are \textbf{orthogonal} if $\langle \vec{x}, \vec{y} \rangle = 0$. A vector $\vec{x} \in V$ is a \textbf{unit vector} if $\| \vec{x} \|=1$. A subset $S$ of $V$ is \textbf{orthonormal} if any pair of distinct vectors in $S$ are orthogonal and consists entirely of unit vectors. 
+        \item Note that for any nonzero vector $\vec{x}$, $(1 / \| \vec{x} \|)\vec{x}$ is a unit vector; this process is called \textbf{normalizing}. 
+    \end{enumerate}
+    
+    \item \textbf{Orthogonal Complements}
+    \begin{enumerate}
+        \item Let $V$ be an inner product space and $S=\{\vec{v}_1, \hdots, \vec{v}_n \}$ be an orthogonal basis of $V$. For $\vec{y}\in V$, we have
+        \begin{align*}
+            \vec{y} = \sum_{i=1}^n \frac{\langle \vec{y}, \vec{v}_i \rangle}{\|\vec{v}_i \|^2} \vec{v}_i
+        \end{align*}
+        \textit{Proof:} Write $\vec{y} = \sum_{i=1}^n a_i \vec{v}_i$. For $1 \leq j \leq n$, we have
+        \begin{align*}
+            \langle \vec{y}, \vec{v}_j \rangle 
+            = \left< \sum_{i=1}^n a_i \vec{v}_i, \vec{v}_j \right> 
+            &= \sum_{i=1}^n a_i \langle \vec{v}_i, \vec{v}_j \rangle \\
+            &= a_j \langle \vec{v}_j, \vec{v}_j \rangle 
+            = a_j \| \vec{v}_j \|^2
+        \end{align*}
+        So $a_j = \frac{\langle \vec{y}, \vec{v}_j \rangle}{\|\vec{v}_j \|^2}$. In the case $S$ is an orthonormal basis, note that we have $\vec{y} = \sum_{i=1}^n \langle \vec{y}, \vec{v}_i \rangle \vec{v}_i$.
+        \item The \textbf{Gram-Schmidt} process converts a linearly independent set into an orthogonal set. Let $V$ be an inner product space and $S = \{ \vec{w}_1, \hdots, \vec{w}_n \}$ be a linearly independent subset of $V$. Define $S' = \{ \vec{v}_1, \hdots, \vec{v}_n \}$ where $\vec{v}_1 = \vec{w}_1$ and
+        \begin{align*}
+            \vec{v}_k = \vec{w}_k - \sum_{j=1}^{k-1} \frac{\langle \vec{w}_k, \vec{v}_j \rangle}{\| \vec{v}_j \|^2} \vec{v}_j \hspace{6mm} \text{for $2 \leq k \leq n$}
+        \end{align*}
+        Then $S'$ is an orthogonal set such that $\text{Span}(S')=\text{Span}(S)$.
+        \item Let $V=\mathbb{P}_n(\mathbb{R})$ with inner product $\langle f(x), g(x) \rangle = \int_{-1}^{1} f(t) g(t) \,dt$. Applying the Gram-Schmidt process on the standard basis $\{1, x, x^2, \hdots \}$ produces an orthogonal basis whose elements are called the \textit{Legendre polynomials}.
+        \item A consequence of Gram-Schmidt is that every nonzero finite-dimensional inner product space has an orthonormal basis.
+        \item Let $V$ be a finite-dimensional inner product space with an orthonormal basis $\beta = \{ \vec{v}_1, \hdots, \vec{v}_n \}$. Let $T$ be a linear operator on $V$, and $A=[T]_\beta$. Then for any $i$ and $j$, $A_{ij} = \langle T(\vec{v}_j), \vec{v}_i \rangle$.
+        \item Let $\beta$ be an orthonormal subset of an inner product space $V$, and let $\vec{x}\in V$. Define the \textbf{Fourier} coefficients of $\vec{x}$ relative to $\beta$ to be the scalars $\langle \vec{x}, \vec{y} \rangle$, where $\vec{y}\in \beta$. Consider the vector space $V$ of functions over $\mathbb{C}$ on the interval $[0,2\pi]$ with inner product $\langle f, g \rangle = \frac{1}{2\pi} \int_0^{2\pi} f(t) \overline{g(t)} \,dt$. The set $\{ 1, \cos{nt}, \sin{nt} \mid n \in \mathbb{N} \}$ is orthogonal on $V$, and is the basis from which the ``classical" Fourier coefficients arise.
+        \item Let $S$ be a nonempty subset of an inner product space $V$. The \textbf{orthogonal complement} $S^\perp$ of $S$ to be the set of all vectors in $V$ that are orthogonal to every vector in $S$; i.e., $S^\perp = \{ \vec{x} \in V \mid \langle \vec{x}, \vec{y} \rangle = 0 \hspace{3mm} \forall \vec{y} \in S \}$. 
+        \item If $S$ is a subset of $V$, then $S^\perp$ is a subspace of $V$. For any subspace $W$ of $V$, $W \cap W^\perp = \{ \vec{0} \}$, $(W^\perp)^\perp = W$, $\{ \vec{0} \}^\perp = V$, and $V = W \oplus W^\perp$.
+        \item For any two subspaces $W_1$ and $W_2$, $(W_1 + W_2)^\perp = W_1^\perp \cap W_2^\perp$ and $(W_1 \cap W_2)^\perp = W_1^\perp + W_2^\perp$. 
+        \item Let $W$ be a finite-dimensional subspace of an inner product space $V$, and let $\vec{y} \in V$. Then there exist unique vectors $\vec{u} \in W$ and $\vec{z} \in W^\perp$ such that $\vec{y} = \vec{u} + \vec{z}$. Furthermore, if $\{ \vec{v}_1, \hdots, \vec{v}_k \}$ is an orthonormal basis for $W$, then
+        \begin{align*}
+            \vec{u} = \sum_{i=1}^k \langle \vec{y}, \vec{v}_i \rangle \vec{v}_i
+        \end{align*}
+        The vector $\vec{u}$ is the unique vector in $W$ that is closest to $\vec{y}$; that is, $\| \vec{y} - \vec{x} \| \geq \| \vec{y} - \vec{u} \|$ for $\vec{x} \in W$, with equality iff $\vec{x}=\vec{u}$. It is called the \textbf{orthogonal projection} of $\vec{y}$ onto $W$.
+        \item Let $A \in M_{n \times n}(\mathbb{C})$. $AA^*=I_n$ iff the rows of $A$ are orthonormal. \textit{Proof:} Recall $AB_{ij}$ is the dot product of row $i$ of $A$ and column $j$ of $B$. So the $ij^{th}$ entry of $AA^*$ is the dot product of row $i$ of $A$ and column $j$ of $A^*$, which is the conjugate of row $j$ of $A$. Denoting the rows of $A$ as $a_1, \hdots, a_n$, we have $AA^* = I_n$ iff $\langle a_i, \overline{a_j} \rangle$ is $0$ when $i \neq j$ and 1 when $i=j$. \\[6 pt]
+        Furthermore, since the rows are orthonormal, $A$ is invertible and $A^{-1} = A^*$. Thus we also have $A^*A=I_n$, and by the same argument as above, the columns of $A$ are orthonormal.
+        
+        \item For a matrix $A \in M_{m \times n}(F)$, $\mathcal{N}(A)^\perp = R(A^T)$ and $\mathcal{N}(A^T)^\perp = R(A)$ where $\mathcal{N}(A)$ and $R(A)$ denote the null space and range of $A$, respectively. This is seen in that the equality $A\vec{x}=\vec{0}$ means $\vec{x}$ is orthogonal to the rows of $A$.
+        
+    \end{enumerate}
+    \item \textbf{The Adjoint of a Linear Operator}
+    \begin{enumerate}
+        \item Let $g:V \mapsto F$ be a linear functional on a finite-dimensional inner product space $V$ over $F$. Then there exists a unique vector $\vec{y} \in V$ such that $g(\vec{x}) = \langle \vec{x},\vec{y} \rangle$ for all $\vec{x} \in V$. \textit{Proof:} If $\beta = \{ \vec{v}_1, \hdots, \vec{v}_n \}$ is an orthonormal basis for $V$, take $\vec{y}=\sum_{i=1}^n \overline{g(\vec{v}_i)} \vec{v}_i$.
+        \item Let $V$ be a finite-dimensional inner product space, and let $T$ be a linear operator on $V$. Then there exists a unique linear operator $T^*:V \mapsto V$ such that $\langle T(\vec{x}), \vec{y} \rangle = \langle \vec{x}, T^*(\vec{y}) \rangle$ for all $\vec{x}, \vec{y} \in V$.
+        \item The operator $T^*$ is called the \textbf{adjoint} of $T$. Note that we also have $\langle \vec{x}, T(\vec{y}) \rangle = \langle T^*(\vec{x}), \vec{y} \rangle$ for all $\vec{x},\vec{y} \in V$. 
+        \item Let $V$ be a finite-dimensional inner product space, and $\beta$ an \textit{orthonormal} basis for $V$. If $T$ is a linear operator on $V$, then 
+        \begin{align*}
+            [T^*]_\beta = [T]_\beta^*
+        \end{align*}
+        
+        \item We have the following properties (with similar results holding for matrices):
+        \begin{enumerate}
+            \item $(T+U)^* = T^* + U^*$
+            \item $(cT)^* = \overline{c}T^*$ for any $c \in F$
+            \item $(TU)^* = U^*T^*$
+            \item $T^{**} = T$
+            \item If $T$ is invertible, $(T^*)^{-1} = (T^{-1})^{*}$.
+        \end{enumerate}
+        
+        \item If $A \in M_{n \times n}(F)$, then det($A^*) = \overline{\text{det}(A)}$.
+        
+        \item Let $T$ be a linear operator on an inner product space $V$. Then $\| T(\vec{x}) \| = \| \vec{x} \|$ for all $\vec{x} \in V$ iff $\langle T(\vec{x}), T(\vec{y}) \rangle = \langle \vec{x}, \vec{y} \rangle$ for all $\vec{x}, \vec{y} \in V$. \textit{Proof:} The backwards direction is trivial. For the forward direction, suppose $\| T(\vec{x}) \| = \| \vec{x} \|$; expand $\| T(\vec{x} + \vec{y}) \|$ by linearity. We arrive at $\Re( \langle T(\vec{x}), T(\vec{y}) \rangle ) = \Re ( \langle \vec{x}, \vec{y} \rangle )$. Applying the same argument to $\vec{x}+i\vec{y}$ shows that the imaginary parts are also equal, and the claim follows. A consequence is that linear operators that preserve lengths (e.g. reflections and rotations in the plane) also preserve angles between vectors (we can define the angle $\theta$ between $\vec{x}$ and $\vec{y}$ as $\cos{\theta} = \frac{\langle \vec{x}, \vec{y}, \rangle}{\| \vec{x} \| \| \vec{y} \|}$).
+        
+        \item Let $A \in M_{m \times n}(F)$. Then rank($A^*A) =$ rank($A$). As a result, if $A$ is an $m\times n$ matrix such that rank($A)=n$, then $A^*A \in M_{n \times n}(F)$ is invertible. 
+        
+        \item \textbf{Least Squares Approximation:} Let $A \in M_{m \times n}(F)$ and $\vec{y} \in F^m$. Then there exists $\vec{x}_0 \in F^n$ such that $(A^*A)\vec{x}_0 = A^*\vec{y}$ and $\| A\vec{x}_0 - \vec{y} \| \leq \| A\vec{x} - \vec{y} \|$ for all $\vec{x} \in F^n$. \\
+        \textit{Proof:} From the discussion on orthogonal projections, there exists a unique vector in $R(A)$ that is closest to $\vec{y}$. Call this vector $A\vec{x}_0$, where $\vec{x}_0 \in F^n$. To compute $\vec{x}_0$, note that $A\vec{x}_0 - \vec{y} \in R(A)^\perp$, so $\langle A\vec{x}, A\vec{x}_0 - \vec{y} \rangle = 0$ for all $\vec{x} \in F^n$. This is equivalent to $\langle \vec{x}, A^*(A\vec{x}_0 - \vec{y}) \rangle = 0$ for all $\vec{x} \in F^n$; that is, $A^*(A\vec{x}_0 - \vec{y})=0$. Hence we need only find a solution $\vec{x}_0$ to $A^*A\vec{x} = A^*\vec{y}$. If rank($A)=n$, then $\vec{x}_0$ is unique.
+        
+        \item An important application of least squares is curve fitting. Suppose we have data points $(x_1, y_1), \hdots, (x_m, y_m)$. If we wish to fit the polynomial $y=ax^2 + bx + c$ to the data, for instance, the appropriate model is
+        \begin{align*}
+            A = 
+            \begin{bmatrix} 
+            x_1^2 & x_1 & 1 \\
+            \vdots & \vdots & \vdots \\
+            x_m^2 & x_m & 1
+            \end{bmatrix}, \hspace{3mm}
+            \vec{x} = 
+            \begin{bmatrix}
+            a \\ b \\ c
+            \end{bmatrix}, \hspace{3mm}
+            \vec{b} = 
+            \begin{bmatrix}
+            y_1 \\ y_2 \\ \vdots \\ y_m
+            \end{bmatrix}
+        \end{align*}
+        Applying least squares to the system $A\vec{x}=\vec{b}$ yields the coefficients $a,b,c$ that minimize error.
+        
+        \item A solution $\vec{s}$ to $A\vec{x} = \vec{b}$ is called a \textit{minimal solution} if $\|\vec{s}\| \leq \| \vec{u} \|$ for all other solutions $\vec{u}$ (i.e., the solution of minimal norm). Every consistent system of linear equations has a unique minimal solution $\vec{s}$. Let $\vec{u}$ be a solution to $AA^*\vec{x} = \vec{b}$. Then $\vec{s} = A^*\vec{u}$.
+    \end{enumerate}
+    
+    \item \textbf{Normal and Self-Adjoint Operators}
+    \begin{enumerate}
+        \item Let $V$ be an inner product space, and let $T$ be a linear operator on $V$. $T$ is called \textbf{normal} if it commutes with its adjoint, that is $TT^*=T^*T$. Similarly, a $n \times n$ matrix $A$ is called normal if $AA^* = A^*A$.
+        \item Let $T$ be a normal operator on $V$. Then
+        \begin{enumerate}
+            \item $\| T(\vec{x}) \| = \| T^*(\vec{x}) \|$ for all $\vec{x} \in V$. \textit{Proof:} For any $\vec{x} \in V$, $\| T(\vec{x}) \|^2 =$ $\langle T(\vec{x}), T(\vec{x}) \rangle =$ $\langle T^*T(\vec{x}), \vec{x} \rangle =$ $\langle TT^*(\vec{x}), \vec{x} \rangle =$ $\langle T^*(\vec{x}), T^*(\vec{x}) \rangle = \| T^*(\vec{x}) \|^2$
+            \item $T-cI$ is normal $\forall c \in F$ 
+            \item If $T(\vec{x}) = \lambda \vec{x}$, then $T^*(\vec{x}) = \overline{\lambda} \vec{x}$. \textit{Proof:} Suppose that $T(\vec{x})=\lambda\vec{x}$; then $(T-\lambda I)(\vec{x}) = \vec{0}$. Thus $0 = \| (T-\lambda I)(\vec{x}) \| = \| (T-\lambda I)^*(\vec{x}) \| = \| (T^* - \overline{\lambda} I)(\vec{x}) \| = \| T^*(\vec{x}) - \overline{\lambda}\vec{x} \|$. Hence $T^*(\vec{x}) = \overline{\lambda}\vec{x}$.
+            \item If $\lambda_1$ and $\lambda_2$ are distinct eigenvalues of $T$ with corrsponding eigenvectors $\vec{x}_1$ and $\vec{x}_2$, then $\vec{x}_1$ and $\vec{x}_2$ are orthogonal. \textit{Proof:} $\lambda_1 \langle \vec{x}_1, \vec{x}_2 \rangle = \langle \lambda_1 \vec{x}_1, \vec{x_2} \rangle = \langle T(\vec{x}_1), \vec{x}_2 \rangle = \langle \vec{x}_1, T^*(\vec{x}_2) \rangle = \langle \vec{x}_1, \overline{\lambda_2}\vec{x}_2 \rangle = \lambda_2 \langle \vec{x}_1, \vec{x}_2 \rangle$. Since $\lambda_1 \neq \lambda_2$, $\langle\vec{x}_1,\vec{x}_2 \rangle = 0$.
+        \end{enumerate}
+        \item Example: For the rotation matrix $A$ for $\mathbb{R}^2$, we have $AA^* = I = A^*A$, so $A$ is normal. For a real skew-symmetric matrix $A$, we have $AA^T = -A^2 = A^TA$, so $A$ is normal.
+        \item Let $T$ be a linear operator on a finite-dimensional complex inner product space $V$. Then $T$ is normal iff there exists an orthonormal basis for $V$ consisting of eigenvectors of $T$. Intuitively, if $\beta$ is an orthonormal basis of eigenvectors, then we see $[T]_\beta$ is diagonal, and so is $[T^*]_\beta$. Diagonal matrices commute, so $T$ and $T^*$ commute.
+        \item Normality is not sufficient to guarantee the existence of an orthonormal basis of eigenvectors for real inner product spaces. We replace normality by the stronger condition that $T = T^*$ in order to guarantee such a basis.
+        \item Let $T$ be a linear operator on an inner product space $V$. $T$ is called \textbf{self-adjoint} if $T=T^*$. Similarly, a $n \times n$ matrix $A$ is called self-adjoint or \textbf{Hermitian} if $A=A^*$. Note for real matrices, this reduces to the requirement that $A$ is symmetric.
+        
+        \item Let $T$ be a self-adjoint operator on a finite-dimensional inner product space $V$. Then every eigenvalue of $T$ is real. \textit{Proof:} Since a self-adjoint operator is also normal, $\lambda\vec{x} = T(\vec{x}) = T^*(\vec{x}) = \overline{\lambda}\vec{x}$ so $\lambda = \overline{\lambda}$, that is, $\lambda$ is real. As a result, the characteristic polynomial of $T$ splits over $\mathbb{R}$.
+        \item Let $T$ be a linear operator on a finite-dimensional real inner product space $V$. Then $T$ is self-adjoint iff there exists an orthonormal basis for $V$ consisting of eigenvectors of $T$.
+        \item A simple corollary is that any Hermitian (over $\mathbb{C}$) or symmetric (over $\mathbb{R}$) matrix is diagonalizable in some orthonormal basis. Indeed, suppose a real symmetric matrix $A=QDQ^T$, where the columns of $Q$ are orthonormal eigenvectors $\vec{u}_1, \hdots, \vec{u}_k$ with corresponding eigenvalues $\lambda_1, \hdots, \lambda_k$. Using column-row expansion, we can write 
+        \begin{align*}
+            A = \lambda_1 \vec{u}_1 \vec{u}_1^T + \lambda_2 \vec{u}_2 \vec{u}_2^T + \hdots + \lambda_k \vec{u}_k \vec{u}_k^T
+        \end{align*}
+        This representation of $A$ is called a \textbf{spectral decomposition} of $A$.
+    \end{enumerate} 
+    
+    \columnbreak
+    \item \textbf{Unitary and Orthogonal Operators}
+    \begin{enumerate}
+        \item Let $T$ be a linear operator on a finite-dimensional inner product space $V$. If $\| T(\vec{x}) \| = \| \vec{x} \|$ for all $\vec{x} \in V$, we call $T$ a \textbf{unitary operator} (over $\mathbb{C}$) or an \textbf{orthogonal operator} (over $\mathbb{R}$).
+        \item A square matrix $A$ is called an \textbf{orthogonal matrix} if $A^TA = AA^T = I$ and \textbf{unitary} if $A^*A = AA^* = I$. 
+        
+        \item A linear operator $T$ is normal, self-adjoint, unitary, or orthogonal iff its matrix $[T]_\beta$ if normal, self-adjoint, unitary, or orthogonal, repsectively where $\beta$ is an \textit{orthonormal} basis.
+        
+        \item There are several equivalent definitions of unitary or orthogonal operators (or matrices). If $T$ is a linear operator on an inner product space $V$, the following are equivalent:
+        \begin{enumerate}
+            \item $TT^* = T^*T = I$. Recall from earlier that this is equivalent to the rows (and columns) of the matrix being orthonormal.
+            \item $\langle T(\vec{x}), T(\vec{y}) \rangle = \langle \vec{x}, \vec{y} \rangle$ for all $\vec{x}, \vec{y} \in V$. This follows from (i) since $\langle \vec{x}, \vec{y} \rangle = \langle T^*T(\vec{x}), \vec{y} \rangle = \langle T(\vec{x}), T(\vec{y}) \rangle$ for any $\vec{x}, \vec{y} \in V$.
+            \item $\| T(\vec{x}) \| = \| \vec{x} \|$ for all $\vec{x} \in V$. The equivalence to (ii) was shown earlier.
+            \item If $\beta$ is an orthonormal basis for $V$, then $T(\beta)$ is an orthonormal basis for $V$.
+        \end{enumerate}
+        \item It follows that every eigenvalue of a unitary or orthogonal operator has absolute value 1.
+        \item Matrices $A$ and $B$ are \textbf{unitarily equivalent} over $\mathbb{C}$ (or orthogonally equivalent over $\mathbb{R}$) if $A=P^*BP$ for some unitary or orthogonal matrix $P$. Note that $P^* = P^{-1}$ so that $A \sim B$.
+        \item For any complex normal (or real symmetric) matrix $A$, we have $A = QDQ^{*}$ where $Q$ is unitary (or orthogonal). The converses are also true, so that we have
+        \begin{enumerate}
+            \item Let $A \in M_{n \times n}(\mathbb{C})$. Then $A$ is normal iff $A$ is unitarily equivalent to a diagonal matrix. 
+            \item Let $A \in M_{n \times n}(\mathbb{R})$. Then $A$ is symmetric iff $A$ is orthogonally equivalent to a diagonal matrix. 
+        \end{enumerate}
+        \item Let $V$ be a real inner product space. A function $f: V \mapsto V$ is called a \textbf{rigid motion} if $\| f(\vec{x}) - f(\vec{y}) \| = \| \vec{x} - \vec{y} \|$ for all $\vec{x}, \vec{y} \in V$. In other words, it is a transformation that preserves distances.
+        \item It is clear that any orthogonal operator or translation on a finite-dimensional real inner product space is a rigid motion. In fact, every rigid motion is a composite of these two rigd motions. 
+        \item Let $f: V \mapsto V$ be a rigid motion; then there exists a unique orthogonal operator $T$ on $V$ and a unique translation $g$ on $V$ such that $f = g \circ T$. 
+    \end{enumerate}
+    \columnbreak
+    
+    \item \textbf{Singular Value Decomposition}
+    \begin{enumerate}
+        \item The singular value decomposition is a useful factorization of any $m \times n$ matrix in applied linear algebra. We will work with real matrices from now on.
+        
+        \item A symmetric matrix $A$ is \textbf{positive definite}, denoted $A \succ 0$, if for all nonzero $\vec{x} \in \mathbb{R}^n$, $\vec{x}^T A \vec{x} > 0$. This is equivalent to having all positive eigenvalues.
+        
+        \item A symmetric matrix $A$ is \textbf{positive semi-definite}, denoted $A \succeq 0$, if for all vectors $\vec{x}^T A \vec{x} \geq 0$. This is equivalent to having all nonnegative eigenvalues.
+        
+        \item \textbf{Negative definite} and \textbf{negative semi-definite matrices} are defined similarly, and a symmetric matrix is \textbf{indefinite} if it is neither positive semi-definite nor negative semi-definite.
+
+        \item Let $A \in M_{m \times n}(\mathbb{R})$. Then $A^TA$ is symmetric and thus orthogonally diagonalizable. Let $\{ \vec{v}_1, \hdots, \vec{v}_n \}$ be an orthonormal basis for $\mathbb{R}^n$ consisting of eigenvectors of $A^TA$, and $\lambda_1, \hdots, \lambda_n$ be the associated eigenvalues. For $1 \leq i \leq n$,
+        \begin{align*}
+            \| A\vec{v}_i \|^2 = (A\vec{v}_i)^T A\vec{v}_i = \vec{v}_i^T A^TA \vec{v}_i = \vec{v}_i^T (\lambda_i \vec{v}_i) = \lambda_i
+        \end{align*}
+        The eigenvalues of $A^TA$ (sometimes called the Gram matrix) are nonnegative, so $A^TA$ is positive semi-definite. The \textbf{singular values} of $A$, denoted $\sigma_1, \hdots, \sigma_n$,  are the square roots of the eigenvalues of $A^TA$ arranged in decreasing order.
+        \item The number of nonzero singular values of $A$ is equal to the rank of $A$.
+        \item Let $A \in M_{m \times n}(\mathbb{R})$ with rank $r$ and positive singular values $\sigma_1 \geq \sigma_2 \geq \hdots \geq \sigma_r$. Let $\Sigma$ be the $m \times n$ matrix defined by
+        \begin{align*}
+            \Sigma_{ij} = 
+                \left\{
+                \begin{array}{ll}
+                  \sigma_i \text{ if $i=j \leq r$} \\
+                  0 \text{ otherwise}
+                \end{array}
+                \right.
+        \end{align*}
+        Then there exists an $m \times m$ matrix orthogonal matrix $U$ and an $n \times n$ matrix orthogonal matrix $V$ such that
+        \begin{align*}
+            A = U \Sigma V^T
+        \end{align*}
+        This is called the \textbf{singular value decomposition} of $A$.
+        \item The columns of $U$ are called the left-singular vectors of $A$, and they are unit eigenvectors of $AA^T$. The columns of $V$ are called the right-singular vectors of $A$, and they are unit eigenvectors of $A^TA$.
+        \item Let $A \in M_{m \times n}(\mathbb{R})$ with rank $r$ and SVD $A=U\Sigma V^T$. Let $\Sigma^\dagger$ be the $n \times m$ matrix defined by
+        \begin{align*}
+            \Sigma_{ij}^\dagger = 
+                \left\{
+                \begin{array}{ll}
+                  \frac{1}{\sigma_i} \text{ if $i=j \leq r$} \\
+                  0 \text{ otherwise}
+                \end{array}
+                \right.
+        \end{align*}
+        Then $A^\dagger = V \Sigma^\dagger U^T$. $A^\dagger$ is called the \textbf{pseudoinverse} of $A$.
+        
+        \item Consider the system of linear equations $A\vec{x} = \vec{b}$, where $A$ is an $m \times n$ matrix and $\vec{b} \in \mathbb{R}^m$. If $\vec{z} = A^\dagger \vec{b}$, then
+        \begin{enumerate}
+            \item if $A\vec{x} = \vec{b}$ is consistent, then $\vec{z}$ is the unique solution to the system having minimum norm.
+            \item if $A\vec{x} = \vec{b}$ is inconsistent, then $\vec{z}$ is the unique best approximation to a solution having minimum norm.
+        \end{enumerate}
+    \end{enumerate}
+    
+    \item \textbf{Quadratic Forms on $\mathbb{R}^n$}
+    \begin{enumerate}
+        \item A quadratic form on $\mathbb{R}^n$ is a function $Q: \mathbb{R}^n \mapsto \mathbb{R}$ of the form $Q(\vec{x}) = \sum_{i=1}^n \sum_{j=1}^n a_{ij} x_ix_j$.
+        \item There is a one-to-one correspondence between quadratic forms and symmetric matrices; any quadratic form $Q$ can be written $Q(\vec{x}) = \vec{x}^T A\vec{x}$, where $A$ is an $n \times n$ symmetric matrix. Using the above notation, $A_{ij} = a_{ij}$. 
+        \item In practice, we can reconstruct $Q$ from $A$ as folows:
+        \begin{align*}
+            Q(\vec{x}) = \sum_{i=1}^n A_{ii}x_i^2 + \sum_{i < j} 2A_{ij}x_ix_j
+        \end{align*} 
+        
+        \item A simple example of a nonzero quadratic form is $Q(\vec{x}) = x_1^2 + x_2^2 + \hdots + x_n^2 = \|\vec{x}\|^2 = \vec{x}^T I_n \vec{x}$.
+        
+        \item $Q$ is positive definite if $Q(\vec{x}) > 0$ for all $\vec{x} \neq \vec{0}$, which is equivalent to its matrix $A$ having all positive eigenvalues. Other terms are defined analogously.
+        \item Let $A$ be an $n \times n$ matrix. Then $A$ is positive definite iff $\det(A_k) > 0$ for $1 \leq k \leq n$, where here $A_k$ denotes the $k \times k$ submatrix formed from the first $k$ rows and first $k$ columns of $A$.
+        
+        \item Diagonalizing the matrix of a quadratic form yields a simpler representation of the quadratic form. For example, consider the equation
+        \begin{align*}
+            3x_1^2 + 3x_2^2+3x_3^2-2x_1x_2+2\sqrt{2}(x_1 + x_3) + 1 = 0
+        \end{align*}
+        Let 
+        \begin{align*}
+            A = 
+            \begin{bmatrix}
+            3 & 0 & -1 \\
+            0 & 3 & 0 \\
+            -1 & 0 & 3
+            \end{bmatrix}, \hspace{3mm}
+            \vec{u} = 
+            \begin{bmatrix} 
+            2\sqrt{2} \\ 0 \\ 2\sqrt{2}
+            \end{bmatrix}
+        \end{align*}
+        So that $\vec{x}^TA\vec{x} + \vec{u} \cdot \vec{x} + 1 = 0$. An orthonormal basis of eigenvectors for $A$ is $\frac{1}{\sqrt{2}} (1,0,1)$, $(0,1,0), \frac{1}{\sqrt{2}} (1,0,-1)$ for eigenvalues 2, 3, 4, respectively. In this basis, the equation becomes 
+        \begin{align*}
+            2x_1^2 +3x_2^2 +4x_3^2 +4x_1 +1 = 0 \\
+            \implies 2(x_1 + 1)^2 + 3x_2^2 + 4x_3^2 = 1
+        \end{align*}
+        which is an ellipsoid centered at $(-1,0,0)$.
+    \end{enumerate} 
+
+    
+    
+\end{enumerate}
+\end{multicols*}
+\end{document}

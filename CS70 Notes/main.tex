@@ -31,50 +31,65 @@
 \maketitle
 \begin{multicols}{2}
 \begin{enumerate}
-    \item \textbf{Set Notation} 
+    \item \textbf{Sets} 
     \begin{enumerate}
-         \item The \textbf{cardinality}, or size, of a set $A$ is denoted by $\norm{A}$. 
+        \item In mathematics, a \textbf{set} is a well-defined collection of distinct objects. The \textbf{cardinality}, or size, of a set $A$ is denoted by $\norm{A}$. If $x$ is an element of $A$, we denote membership by $x \in A$.
          \item If every element of a set $A$ is also in set $B$, then we say that $A$ is a \textbf{subset} of $B$, written $A \subseteq B$. 
+         \item Two sets $A$ and $B$ are said to be \textbf{equal} if $A \subseteq B$ and $B \subseteq A$.
          \item A \textbf{proper subset} is a set $A$ that is strictly contained in $B$, written as $A \subset B$, meaning that $A$ excludes at least one element of $B$. 
          \item The \textbf{intersection} of a set $A$ with a set $B$, written as $A \cap B$, is a set containing all elements which are in both $A$ and $B$. 
          \item The \textbf{union} of a set $A$ with a set $B$, written as $A \cup B$, is a set of all elements which are in either $A$ or $B$ or both. 
          \item The \textbf{relative complement} of $A$ in $B$, written as $B - A$ or $B \setminus A$, is the set of elements in $B$, but not in $A$.
+         \item The \textbf{Cartesian product} of $A$ and $B$, written $A \times B$, is the set of all ordered pairs $\{(a,b) \mid a \in A, b \in B \}$.
     \end{enumerate}
 
     
     \item \textbf{Important Sets} 
     \begin{itemize}
         \item $\mathbb{N}$ denotes the set of all natural numbers: $\left\{0,1,2,3,\hdots \right\}$.
-        \item $\mathbb{Z}$ denotes the set of all integer numbers: $\left\{\hdots,-2,-1,0,1,2,\hdots\right\}$. Note that $\mathbb{N}$ and $\mathbb{Z}$ are closed under addition and multiplication.
-        \item $\mathbb{Q}$ denotes the set of all rational numbers: $\left\{ \frac{a}{b} | a,b \in \mathbb{Z}, b \neq 0 \right\}$.
+        \item $\mathbb{Z}$ denotes the set of all integer numbers: $\left\{\hdots,-2,-1,0,1,2,\hdots\right\}$. 
+        \item $\mathbb{Q}$ denotes the set of all rational numbers: $\left\{ \frac{a}{b} \mid a,b \in \mathbb{Z}, b \neq 0 \right\}$.
         \item $\mathbb{R}$ denotes the set of all real numbers.
         \item $\mathbb{C}$ denotes the set of all complex numbers.
     \end{itemize}
     
     \item \textbf{Propositional Logic}
     \begin{enumerate}
-        \item \textbf{Implication:} $P \implies Q \equiv \neg P \lor Q$ (Implication is only false when $P$ is true and $Q$ is false)
-        \item \textbf{Contrapositive:} $\neg Q \implies \neg P$ $(\equiv P \implies Q)$
-        \item \textbf{Converse:} $Q \implies P$
-        \item \textbf{Iff:} $P \iff Q \equiv (P \implies Q) \land (Q \implies P)$
-        \item \textbf{Distributivity:} \\ $P \land (Q \lor R) \iff (P \land Q) \lor (P \land R)$ \\
+        \item A \textbf{proposition} is a declaration that is either true or false. Two propositions $P$ and $Q$ are logically equivalent, denoted $P \equiv Q$, if they share the same truth values.
+        \item Connectives: 
+        \begin{align*}
+            \text{And}: P \land Q \hspace{8mm} \text{Or}: P \lor Q \hspace{8mm} \text{Not}: \neg P 
+        \end{align*}
+         Quantifiers: 
+         \begin{align*}
+             \text{There exists}: \exists \hspace{8mm} \text{For all}: \forall
+         \end{align*}
+        \item \textbf{Implication:} “If $P$, then $Q$", denoted $P \implies Q$. This is logically equivalent to $\neg P \lor Q$. (Note that implication is only false when $P$ is true and $Q$ is false)
+         
+
+        \item The \textbf{contrapositive} of $P \implies Q$ is $\neg Q \implies \neg P$, which is logically equivalent.
+        \item The \textbf{converse} of $P \implies Q$ is $Q \implies P$, which is \textit{not} logically equivalent. 
+        \item \textbf{If and only if} (iff), denoted $P \iff Q$, is equivalent to implication in both directions: $(P \implies Q) \land (Q \implies P)$.
+        \item \textbf{Distribution Laws:} \\ $P \land (Q \lor R) \iff (P \land Q) \lor (P \land R)$ \\
          $P \lor (Q \land R) \iff (P \lor Q) \land (P \lor R)$
         
         \item \textbf{DeMorgan's Laws} \\ $\neg (P \lor Q) \iff \neg P \land \neg Q$ \\
          $\neg (P \land Q) \iff \neg P \lor \neg Q$ \\
          $\neg (\forall x P(x)) \iff \exists x (\neg P(x))$ \\
-         $\neg (\exists x P(x)) \iff \forall x (\neg P(x))$ \\
-        \item \textbf{Equivalencies:} \\
+         $\neg (\exists x P(x)) \iff \forall x (\neg P(x))$ 
+        \item Equivalencies: \\
         $\forall x (P(x) \land Q(x)) \iff (\forall x,P(x)) \land (\forall x,Q(x))$ \\
         $\exists x (P(x) \lor Q(x)) \iff (\exists x,P(x)) \lor (\exists x,Q(x))$
-        \item Both $\forall$ and $\exists$ can be switched if they are adjacent. Also, $\exists x, \forall y, P(x,y) \implies \forall y,\exists x,P(x,y)$ but the converse is not true. (Think: There exists a man who loves every woman. Therefore for every woman, there exists a man who loves them.)
     \end{enumerate}
     
-    \item \textbf{Formal Definitions (useful for proofs)}
+    \item \textbf{Formal Definitions and Important Lemmas}
     \begin{enumerate}
         \item Given integers $a$ and $b$, we say that $a$ divides $b$, denoted $a|b$, (or $b$ is divisible by $a$) iff there exists an integer $q$ such that $b = aq$.
         \item A prime number is divisible only by 1 and itself.
         \item An even number is an integer $n$ of the form $n=2k, k \in \mathbb{Z}$. An odd number is an integer $n$ of the form $n=2k+1, k \in \mathbb{Z}$.
+        \item If $a^2$ is even, then $a$ is even.
+        \item Every natural number greater than one is either prime or has a prime divisor.
+        \item The well-ordering principle states that every non-empty set of positive integers contains a least element. 
     \end{enumerate}
     
     \item \textbf{Proof techniques}
@@ -83,21 +98,11 @@
         \item \textbf{Proof by contraposition:} Goal: Prove $P \implies Q$. Assume $\neg Q$ $\hdots$ therefore $\neg P$.
         \item \textbf{Proof by contradiction:} Goal: Prove $P$. Assume $\neg P$. Show that $\neg P \implies R \land \neg R$, a contradiction. Therefore, $P$.
         \item \textbf{Proof by cases:} In proving a claim, we don’t know which of a set of possible cases is true, but we know that at least one of the cases is true. What we can do then is to prove the result in both cases; then, clearly the general statement must hold.
-        \item \textbf{Proof by Induction:} Goal: Prove $P$. In the base case, show that $P(0)$ is true. In the inductive hypotheses, assume $P(k)$ is true for some arbitrary value $k$. In the inductive step, show that the claim holds for $P(k+1)$ with the assumption of the inductive hypothesis in hand. 
-        \begin{enumerate}
-            \item \textbf{Strong Induction:} Same as induction, but with stronger inductive hypotheses: \\
-            \textit{Inductive Hypotheses:} Assume $P(n)$ is true for all $1 \leq n \leq k$ for some $k$. Then, prove that $P(k+1)$ is true.
-        \end{enumerate}
+        \item \textbf{Proof by Induction:} Goal: Prove $P$. Choose an appropriate quantity $n$ to induct on. In the \textit{base case}, show that $P(1)$ is true. In the inductive hypotheses, assume $P(k)$ is true for some $k \geq 1$. In the inductive step, show that the claim holds for $P(k+1)$. Conclude that $P$ holds for all $n$.
+        \item \textbf{Strong Induction:} Same as induction, but with stronger inductive hypotheses: Assume $P(j)$ is true for all $1 \leq j \leq k$ for some $k$. Then show that $P(k+1)$ is true.
     \end{enumerate}
     
-    \item \textbf{Useful lemmas}
-    \begin{enumerate}
-        \item If $a^2$ is even, then $a$ is even.
-        \item Every natural number greater than one is either prime or has a prime divisor.
-        \item The well-ordering principle states that every non-empty set of positive integers contains a least element. Use this to justify the existence of a first instance of an event in stable marriage.
-    \end{enumerate}
-    
-    \item \textbf{Stable Marriage:} Each man and woman has an ordered preference list of their $n$ potential partners. The algorithm is as follows: 
+    \item \textbf{Stable Marriage Algorithm:} Each man and woman has an ordered preference list of their $n$ potential partners. The algorithm is as follows: 
     \begin{enumerate}
         \item Each man proposes to the most preferred woman on his list who has not yet rejected him.
         \item Each woman collects all the proposals she received; to the man she likes best, she responds “maybe” (puts him on a string), and to the others, she says “never”.
@@ -114,8 +119,10 @@
     
     \item \textbf{Graph Theory} 
     \begin{enumerate}
+        \item An \textit{undirected} graph $G$ is defined by a set of vertices $V$ and a set of edges $E$ consisting of pairs of vertices. A \textit{directed} graph models one-way relationships, so we have $E \subseteq V \times V$.
+        \item The edge $e = \{u, v \}$ is \textit{incident} on vertices $u$ and $v$, and we say $u$ and $v$ are \textit{adjacent}. If $G$ is undirected, then the \textit{degree} of vertex $u \in V$ is the number of edges incident to $u$. If $G$ is directed, $u$ has an associated \textit{in-degree} and \textit{out-degree}.
         \item Let $G$ be an undirected graph. A \textbf{path} in $G$ is a sequence of edges with no repeated vertices or edges (simple). A \textbf{cycle} is a path which starts and ends on the same vertex. A \textbf{walk} is a sequence of edges which can have repeated vertices. A \textbf{tour} is a walk which starts and ends at the same vertex. \textbf{Connected components} are sets $V_1,\hdots,V_k$ of vertices, such that all vertices in a set $V_i$ are connected.
-        \item A Eulerian walk is a walk in $G$ that uses each edge exactly once (Eulerian tour if ends at same vertex). \textbf{Theorum:} An undirected graph $G$ has a Eulerian tour iff $G$ is even degree and connected (except for isolated vertices). 
+        \item A Eulerian walk is a walk in $G$ that uses each edge exactly once (Eulerian tour if ends at same vertex). \textit{Theorem:} An undirected graph $G$ has a Eulerian tour iff $G$ is even degree and connected (except for isolated vertices). 
         \item Recursive algorithm for Eulerian Tour:
         \begin{verbatim}
 def Euler(G,s): 
@@ -124,17 +131,17 @@ def Euler(G,s):
         EULER(G_k,s_k))
         \end{verbatim}
         ($G_1, \hdots,G_k$ are the connected components when the edges in $T$ are removed from $G$, and $s_i$ is the first vertex in $T$ that intersects $G_i$. findTour($G,s$), finds any tour from $s$. splice returns a combined tour obtained by traversing the edges of $T$, and whenever it reaches a vertex $s_i$ that intersects another tour $T_i$, it takes a detour to traverse $T_i$ from $s_i$ back to $s_i$ again, and only then it continues traversing $T$.)
-        \item A graph is a \textbf{tree} if it is connected and acyclic. Equivalent definitinions include: There are $v-1$ edges; The removal of any edge disconnects the graph; the addition of any edge creates a cycle. Unique path between any pair of vertices. Useful: A tree must contain a degree 1 node. Remove it when trying to prove something.
+        \item A graph is a \textbf{tree} if it is connected and acyclic. Equivalent definitinions include: There are $v-1$ edges; the removal of any edge disconnects the graph; the addition of any edge creates a cycle. Unique path between any pair of vertices. Note that a tree must contain a degree 1 node (called a leaf).
         \item A graph is \textbf{planar} if it can be drawn on the plane without crossings. \textbf{Faces} $f$ are the regions into which the graph subdivides the plane. 
         \item Euler's Formula: For every connected planar graph, $v+f=e+2$ (The converse is NOT true). Important consequence: $e \leq 3v-6$ (Planar graphs are sparse).
         \item A graph is non-planar if and only if it contains $K_5$ or $K_{3,3}:$
-        \item A \textbf{bipartite graph} is a graph whose vertices can be divided into two disjoint sets (no shared elements) $U$ and $V$ such that \textit{every} edge connects a vertex in $U$ to a vertex in $V$.
         \begin{align*}
             \includegraphics[width=4cm]{kk.png}
         \end{align*}
         (Contains means that one can identify nodes in the graph which are connected as $K_5$ or $k_{3,3}$ through paths such that each two of these paths share a vertex.)
+        \item A \textbf{bipartite graph} is a graph whose vertices can be divided into two disjoint sets (no shared elements) $U$ and $V$ such that \textit{every} edge connects a vertex in $U$ to a vertex in $V$.
         \item A \textbf{Complete Graph} is a graph in which all nodes are connected to all other nodes. Let $K_n$ denote the unique complete graph for $n$ vertices. $K_n$ has $n(n-1)/2$ edges.
-        \item \textbf{Useful facts:} 
+        \item Useful facts: 
         \begin{enumerate}
             \item By definition of a cycle, removing any edge in the cycle does not disconnect the graph $G$.
             \item If $G$ is connected, then the addition of any vertex incident on more than one edge will create a cycle.
@@ -148,8 +155,6 @@ def Euler(G,s):
            \includegraphics[scale=0.25]{cube2.png}
         \end{align*}
         \textbf{Recursive definition} of hypercube: Define the 0-subcube and 1-subcube as the $(n-1)$-dimensional hypercube with vertices labeled by 0$x$ for $x \in \{0,1\}^{n-1}$ and 1$x$ for $x \in \{0,1\}^{n-1}$, respectively. Then, the $n$-dimensional hypercube is obtained by placing an edge between each pair of vertices 0$x$ in the 0-subcube and 1$x$ in the 1-subcube.
-        
-        The $n$-dimensional hypercube is well-connected in the following sense: \textit{Theorum}: Let $S \subseteq V$ be such that $|S| \geq |V - S|$ (i.e., that $|S| \geq 2^{n-1}$), and let $E_S$ denote the set of edges connecting $S$ to $V - S$. Then, it holds that $|E_S| \geq |S|$.
 
     \end{enumerate}
     
@@ -165,7 +170,7 @@ def Euler(G,s):
             \item $a - c \equiv_n b - d$
             \item $ac \equiv_n bd$
         \end{enumerate}
-        \item The \textbf{multiplicative inverse} of $x$ (mod $n$) is $y$ such that $xy$ (mod $n$) = 1. \textbf{Theorem:} $x$ has a multiplicative inverse modulo $n$ if and only if $gcd(x,n)=1$. Moreover, this inverse is unique.
+        \item The \textbf{multiplicative inverse} of $x$ (mod $n$) is $y$ such that $xy$ (mod $n$) = 1. \textit{Theorem:} $x$ has a multiplicative inverse modulo $n$ if and only if $gcd(x,n)=1$. Moreover, this inverse is unique.
         \item We note that if $x \geq y$, then $gcd(x,y)=gcd(y, x$ (mod $y$)). This allows to write the following algorithm: \\ 
         Extended $gcd$ algorithm for $x \geq y \geq 0$ and $x > 0$: \\
         def extended-gcd($x,y$): 
@@ -195,20 +200,18 @@ def Euler(G,s):
         \item Decryption is given by $$D(x)=x^d \pmod{N}$$ where $d$ is the multiplicative inverse of $e \pmod{(p-1)(q-1)}$.
         \item To show that RSA works, we show that $D(E(x))=x$, that is, $x^{ed} \equiv x \pmod{N}$, or $x^{ed} - x \equiv 0 \pmod{N}$ for $x \in\{0,1, \ldots, N-1\}$. Since $ed \equiv 1 \pmod{(p-1)(q-1)}$, or written another way, $ed = 1 + k(p-1)(q-1)$ for some integer $k$, we get $x^{ed} - x = x^{1 + k(p-1)(q-1)} - x = x(x^{k(p-1)(q-1)})$. If $x$ is a multiple of $p$, then clearly the claim follows. If not, use Fermat's Little Theorem to see the claim still follows. 
         \item When we have to compute $x^y \pmod{N}$ for some large $y$, we use a simple technique known as repeated squaring to keep the number of multiplications $O(\log y)$ instead of $O(y)$.
-        \item RSA is secure because given $N$, $e$, and $E(x)$, there is no efficient algorithm for finding $x$. (Amounts to factoring $N$ into $p$ and $q$). $p$ and $q$ are often over 100 digits!
+        \item RSA is secure because given $N$, $e$, and $E(x)$, there is no efficient algorithm for finding $x$. (Amounts to factoring $N$ into $p$ and $q$). $p$ and $q$ are often over 100 digits.
     \end{enumerate}
-    \newpage
     \item \textbf{Polynomials} 
     \begin{enumerate}
-    \item A single-variable \textbf{polynomial} of degree $d$ is a function of the form $$p(x)=a_dx^d+a_{d-1}x^{d-1}+\hdots+a_0$$ \item $a$ is a root of $p(x)$ if $p(a)=0$.
+    \item A single-variable \textbf{polynomial} of degree $d$ is a function of the form $$p(x)=a_dx^d+a_{d-1}x^{d-1}+\hdots+a_0$$ \item $a$ is a root of $p(x)$ iff $p(a)=0$.
     \item \textbf{Property 1:} A degree $d$ polynomial has at most $d$ roots. \\
-    
     \textit{Proof:} This follows from the following facts:
     \begin{itemize}
         \item If $a$ is a root of $p(x)$ with degree $d$, then $p(x) = (x - a)q(x)$ for a polynomial $q(x)$ with degree $d - 1$. (We use the result from polynomial division and show $r(x)=0$).
         \item A polynomial $p(x)$ of degree $d$ with distinct roots $a_1,\hdots,a_d$ can be written as $p(x)=c(x-a_1) \ldots (x-a_d)$ (This follows from fact 1).
     \end{itemize}
-    \item \textbf{Property 2:} Given $d+1$ pairs $(x_1,y_1),\hdots,$ $(x_{d+1}, y_{d+1})$ of points, all $x_i$ distinct, there is a unique polynomial of (at most) degree $d$ that passes through all points. \\[8 pt]
+    \item \textbf{Property 2:} Given $d+1$ pairs $(x_1,y_1),\hdots,$ $(x_{d+1}, y_{d+1})$ of points, all $x_i$ distinct, there is a unique polynomial of (at most) degree $d$ that passes through all points. \\
     \textit{Proof:} Existence of a polynomial is proved by lagrange interpolation. Proof of uniqueness: suppose there is another such polynomial, $q(x)$. Consider a polynomial $r(x)=p(x)-q(x)$. $r(x)$ must a non-zero polynomial of degree $d$ with at most $d$ roots. But $r(x_i)=p(x_i)-q(x_i)=0$ on $d+1$ distinct points. Contradiction.
     \item \textbf{Lagrange interpolation} is a method of reconstructing the unique polynomial of degree $d$ given $d+1$ points $(x_1,y_1), \hdots,(x_{d+1}, y_{d+1})$. The lagrange polynomial is given by 
     $$p(x)=\sum_{i=1}^{d+1} y_i \Delta_i(x)$$ where
@@ -274,19 +277,23 @@ def Euler(G,s):
             \item It turns out that writing a program that tests if P halts on a specific input 0 is also impossible, because if it was, then \texttt{TestHalt} would be solvable (consider a program that P' that takes 0 as input and simply returns P(x)).
             \item \textbf{Godel's Incompleteness Theorem} shows that arithmetic (or any formal system that formalizes computation) is either \textit{inconsistent} (there are false statements that can be proved) or \textit{incomplete} (there are true statements that cannot be proved). Let S be the statement ``P halts on input 0". Since we assume arithmetic is complete and consistent, S is true or false and there is a proof either way. All proofs are finite binary strings, so there are countably many proofs. Consider a program that takes as input the program P, and proceeds to check every possible proof until it finds one that proves either P(0) halts, or P(0) does not halt. This program will terminate in finite time, and it will correctly answer the Easy Halting Problem (contradiction!)
         \end{enumerate}
-        
+        \newpage
         \item \textbf{Counting}
         \begin{enumerate}
-            \item \textbf{First rule of counting:} If an object can be made by a succession of $k$ choices (i.e. a sandwich) where there are $n_1$ ways of making the first choice, $n_2$ ways of making the second choice, and so on up to the $n_k$-th choice, then the total number of distinct objects is the product of $n_1, \hdots, n_k$. \\[8 pt]
-            The number of ways to draw $k$ samples from $n$ items (permutations):
+            \item \textbf{First rule of counting:} If an object can be made by a succession of $k$ choices where there are $n_1$ ways of making the first choice, $n_2$ ways of making the second choice, and so on up to the $n_k$-th choice, then the total number of distinct objects is the product of $n_1, \hdots, n_k$. 
+            \item The number of ways to draw $k$ samples from $n$ items (permutations):
+            \begin{itemize}
             \item Sample with replacement, order matters: $$n^k$$
             \item Sample without replacement, order matters: $$\frac{n!}{(n-k)!}$$
-            \item \textbf{Second rule of counting:} The number of ways to select $k$ distinct elements of a set of size $n$ where order is irrelevant (i.e. a hand in poker) is the number of ways if order mattered, divided by the number of possible orderings. \\[8 pt]
-            The number of ways to choose $k$ elements from a set $S$ of size $n$ (combinations):
+            \end{itemize}
+            \item \textbf{Second rule of counting:} The number of ways to select $k$ distinct elements of a set of size $n$ where order is irrelevant (i.e. a hand in poker) is the number of ways if order mattered, divided by the number of possible orderings. 
+            \item The number of ways to choose $k$ elements from a set $S$ of size $n$ (combinations):
+            \begin{itemize}
             \item Sample without replacement, order irrelevant:
             $$ {n \choose k} = \frac{n!}{(n-k)!k!}$$
             \item Sample with replacement, order irrelevant:
-            $$ {n+k-1 \choose k}$$
+            $$ {n+k-1 \choose k}$$ 
+            \end{itemize}
             We see this by considering stars and bars: how many ways can you distribute $k$ balls into $n$ bins? A solution is represented by $k$ stars and $n-1$ bars, or separators. Any solution can be represented as choosing $k$ out of $k+n-1$ positions to place stars and filling the remaining spaces with bars.
             \item To generalize balls and bins:
             \begin{itemize}
@@ -319,7 +326,7 @@ def Euler(G,s):
                 \item \textbf{negatively correlated} if $P(A \cap B)<P(A)P(B)$
             \end{enumerate}
             \item In general, $n$ events are \textbf{mutually independent} if \textit{every} subset of the $n$ events is independent (so pairwise independence does \textit{not} imply mutual independence).
-            \item \textbf{Intersections (ands) of Events:} For intersections of possibly \textit{non-independent} events, we use the \textbf{chain rule:} 
+            \item \textbf{Intersections (ands) of Events:} For intersections of possibly \textit{non-independent} events, we use the \textbf{product rule:} 
             \begin{align*}
             P(&A_1,\hdots,A_n)= \\
             &P(A_1)P(A_2|A_1) \cdots P(A_n|A_{n-1},A_{n-2},\hdots, A_1)
@@ -449,7 +456,7 @@ def Euler(G,s):
                 P(|Y-\mu| < a) &= 1-P(|Y-\mu| \geq a] \\
                 &\geq 1 - \frac{\text{Var}(Y)}{a^2}=1-\frac{\sigma^2}{na^2}
             \end{align*}
-            Thus $1-\frac{\sigma^2}{na^2}$ represents our confidence $\delta$. $\sigma^2$ can be determined from the situation at hand. If we set $\delta=0.95$, for example, we can solve for $a$ or $n$. We find $$\left(Y-\frac{4.5\sigma}{\sqrt{n}}, Y+\frac{4.5\sigma}{\sqrt{n}}\right)$$ is a 95\% confidence interval for $\mu$. If each $X_i$ is a \textbf{Bernoulli} variable (i.e., $X_i$ is an indicator variable), then $\sigma^2 \leq \frac{1}{4}$, so $\sigma \leq \frac{1}{2}$ and we see $$\left(Y-\frac{2.25}{\sqrt{n}}, Y+\frac{2.25}{\sqrt{n}}\right)$$ is a 95\% confidence interval for $p$. In practice, not always easy to come up with an upper bound for $\sigma$.
+            Thus $1-\frac{\sigma^2}{na^2}$ represents our confidence $\delta$. $\sigma^2$ can be determined from the situation at hand. If we set $\delta=0.95$, for example, we can solve for $a$ or $n$. We find $$\left(Y-\frac{4.5\sigma}{\sqrt{n}}, Y+\frac{4.5\sigma}{\sqrt{n}}\right)$$ is a 95\% confidence interval for $\mu$. If each $X_i$ is a Bernoulli variable (i.e., $X_i$ is an indicator variable), then $\sigma^2 \leq \frac{1}{4}$, so $\sigma \leq \frac{1}{2}$ and we see $$\left(Y-\frac{2.25}{\sqrt{n}}, Y+\frac{2.25}{\sqrt{n}}\right)$$ is a 95\% confidence interval for $p$. In practice, not always easy to come up with an upper bound for $\sigma$.
         \end{enumerate}
         
         \item \textbf{Linear Regression and Conditional Expectation}
@@ -565,14 +572,14 @@ def Euler(G,s):
             \item \textbf{Exponential Distribution:} The exponential distribution is the continuous version of the geometric distribution. An exponential random variable $X$ with parameter $\lambda > 0$ has the PDF
             $$f_X(x) = \lambda e^{-\lambda x}$$ for $x\geq 0$. The CDF is $$F_X(x) = 1 - e^{-\lambda x}$$ We can interpret $\lambda$ to be the success rate per unit time. We have $$E(X) = \frac{1}{\lambda} \hspace{10mm} \text{Var}(X) = \frac{1}{\lambda^2}$$
             We also have that the minimum of $n$ independent exponential variables with parameters $\lambda_1, \ldots, \lambda_n$, respectively, is also exponentially distributed with parameter $\lambda_1+\ldots+\lambda_n$ (In general, these properties are easily derived using the CDF).
-            \item \textbf{*Normal (Gaussian) Distribution:} A normal random variable $X$ with parameters $\mu$ and $\sigma>0$ has the PDF $$f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2 / 2\sigma^2}$$ If $\mu = 0$ and $\sigma = 1$, then $X$ has the standard normal distribution. If $X$ is a normal variable, then $Y=\frac{X-\mu}{\sigma}$ is a standard normal variable. We have $$E(X) = \mu \hspace{10mm} \text{Var}(X) = \sigma^2$$ We also have that the sum of $n$ independent random variables with parameters $\mu_i$ and $\sigma_i$ is also normally distributed with parameters $\sum_{i=1}^n \mu_i$ and $\sum_{i=1}^n \sigma_i$.
-            \item \textbf{*Central limit theorem:} Recall that the law of large numbers states that the probability of \textit{any} deviation of the sample average of $n$ independent random variables from the true mean tends to 0 as $n\rightarrow\infty$. \\
+            \item \textbf{Normal (Gaussian) Distribution:} A normal random variable $X$ with parameters $\mu$ and $\sigma>0$ has the PDF $$f_X(x) = \frac{1}{\sqrt{2\pi\sigma^2}}e^{-(x-\mu)^2 / 2\sigma^2}$$ If $\mu = 0$ and $\sigma = 1$, then $X$ has the standard normal distribution. If $X$ is a normal variable, then $Y=\frac{X-\mu}{\sigma}$ is a standard normal variable. We have $$E(X) = \mu \hspace{10mm} \text{Var}(X) = \sigma^2$$ We also have that the sum of $n$ independent random variables with parameters $\mu_i$ and $\sigma_i$ is also normally distributed with parameters $\sum_{i=1}^n \mu_i$ and $\sum_{i=1}^n \sigma_i$.
+            \item \textbf{Central limit theorem:} Recall that the law of large numbers states that the probability of \textit{any} deviation of the sample average of $n$ independent random variables from the true mean tends to 0 as $n\rightarrow\infty$. \\
             
             The \textbf{central limit theorem} states something stronger: the distribution of the sample average of $n$ observations of an arbitrary random variable $X$ converges to a normal distribution with mean $\mu$ and variance $\frac{\sigma^2}{n}$. \\
             
             Precisely, let $Y=\frac{X_1+\ldots+X_n}{n}$, where $X_1, \ldots, X_n$ are independent and identically distributed random variables each with mean $\mu$ and variance $\sigma^2$. Recall that $\text{Var}(Y)=\frac{\sigma^2}{n}$. Define $Z=\frac{(Y-\mu)\sqrt{n}}{\sigma}$. The CLT says $Z$ approaches the standard normal distribution as $n\rightarrow\infty$.
             
-            \item \textbf{*Confidence Intervals revisited:} Using the same definitions provided above, we are interested in
+            \item \textbf{Confidence Intervals revisited:} Using the same definitions provided above, we are interested in
             \begin{align*}
                 P(|Y-\mu| < a) \geq \delta
             \end{align*}
