@@ -24,18 +24,18 @@
 \date{}
 \title{\vspace{-5ex} \dunhd{Math 53: Multivariable Calculus Notes} \vspace{-5ex}}
 \maketitle
-\begin{multicols*}{2}
+\begin{multicols}{2}
 \section{Parametric Curves, Polar Coordinates}
 \begin{enumerate}
     \item \textbf{Parametric Equations} 
     \begin{enumerate}
-         \item Many curves cannot be expressed in the form $y=f(x)$ or $x=f(y)$. Sometimes we can express $x$ and $y$ as functions of a third variable $t$, called a \textbf{parameter.} The \textbf{parametric equations} $x = f(t)$ and $y=g(t)$ trace out a curve as $t$ varies. If we restrict $a \leq t \leq b$, then the curve has initial point $(f(a), g(a))$ and terminal point $(f(b), g(b))$.
+         \item Some curves cannot be expressed in the form $y=f(x)$ or $x=f(y)$. We can instead express $x$ and $y$ as functions of a third variable $t$, called a \textbf{parameter.} The \textbf{parametric equations} $x = f(t)$ and $y=g(t)$ trace out a curve as $t$ varies. If we restrict $a \leq t \leq b$, then the curve has initial point $(f(a), g(a))$ and terminal point $(f(b), g(b))$.
          
          \item Note that familiar functions $y=f(x)$ can be written in parametric form as $x=t$ and $y=f(t)$. We can attempt to eliminate the parameter $t$ to recover a Cartesian equation of the curve.
          
-         \item The parametric equations $x = a\cos{t}$, $y = b\sin{t}$, $0 \leq t \leq 2\pi$ sketch out the ellipse $\frac{x^2}{a^2} + \frac{y^2}{b^2}=1$ in a counterclockwise direction.
+         \item For example, the parametric equations $x = a\cos{t}$, $y = b\sin{t}$, $0 \leq t \leq 2\pi$ sketch out the ellipse $\frac{x^2}{a^2} + \frac{y^2}{b^2}=1$ in a counterclockwise direction.
          
-         \item The curve traced out by a point on the circumference of a circle as the circle rolls along a straight line is called a \textbf{cycloid}. Parametric equations for the cycloid if the point starts at the origin on a circle of radius $r$ are $x = r( \theta - \sin{\theta})$ and $y = r(1 - \cos{\theta})$ for $\theta \in \mathbb{R}$; one arch is $0 \leq \theta \leq 2\pi$.
+         \item The curve traced out by a point on the circumference of a circle as the circle rolls along a straight line is called a \textbf{cycloid}. For a circle of radius $r$ with starting point on the origin, the cycloid is given by $x = r( \theta - \sin{\theta})$ and $y = r(1 - \cos{\theta})$ for $\theta \in \mathbb{R}$; one arch is $0 \leq \theta \leq 2\pi$.
     \end{enumerate}
     
     \item \textbf{Calculus of Parametric Curves}
@@ -45,12 +45,12 @@
             \frac{dy}{dx} = \frac{dy / dt}{dx / dt}
         \end{align*}
         
-        \item \textbf{Second derivative:} We also have
+        \item \textbf{Second derivatives:} 
         \begin{align*}
             \frac{d^2y}{dx^2} = \frac{\frac{d}{dt}(\frac{dy}{dx})}{\frac{dx}{dt}}
         \end{align*}
         \item In computing tangents, recall point-slope form of a line: $y - y_1 = m(x - x_1)$.  
-        \item Horizontal tangents occur when the numerator is 0; vertical tangents occur when the denominator is 0; use L'Hospitals rule when both the numerator and denominator are 0.
+        \item Horizontal tangents occur when the numerator is 0; vertical tangents occur when the denominator is 0; L'Hospitals rule may help when both the numerator and denominator are 0.
         
         \item \textbf{Areas:} If a curve is sketched out by parametric equations $x = f(t)$ and $y = g(t)$, $\alpha \leq t \leq \beta$, then the area under the curve is 
         \begin{align*}
@@ -60,12 +60,12 @@
         \begin{align*}
             A = \int_c^d x \, dy = \int_\alpha^\beta g'(t) f(t) \, dt
         \end{align*}
-        where $c = g(\alpha)$ and $d = g(\beta)$ In other words, set up integral with respect to $x$ or $y$, then replace $dx$ (or $dy$) with $\frac{dx}{dt}dt$ (or $\frac{dy}{dt}dt$) and the limits of integration with values of $t$ that produce those limits.
+        where $c = g(\alpha)$ and $d = g(\beta)$.
         \item \textbf{Arc length:} If a curve $C$ is described by the parametric equations $x = f(t)$ and $y = g(t)$, $\alpha \leq t \leq \beta$, where $f'$ and $g'$ are continuous on $[\alpha, \beta]$, and $C$ is traversed exactly once as $t$ increases from $\alpha$ to $\beta$, then the length of $C$ is 
         \begin{align*}
             L = \int_\alpha^\beta \sqrt{ \left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2} \, dt
         \end{align*}
-        \item \textbf{Surface Area:} As before, a curve $C$ is described by the parametric equations $x = f(t)$ and $y = g(t)$, $\alpha \leq t \leq \beta$, where $f'$ and $g'$ are continuous on $[\alpha, \beta]$, $g(t) \geq 0$, and $C$ is traversed exactly once as $t$ increases from $\alpha$ to $\beta$. If $C$ is rotated about an axis, the area of the resulting surface is         \begin{align*}
+        \item \textbf{Surface Area:} Suppose a curve $C$ is described by the parametric equations $x = f(t)$ and $y = g(t)$, $\alpha \leq t \leq \beta$, where $f'$ and $g'$ are continuous on $[\alpha, \beta]$, $g(t) \geq 0$, and $C$ is traversed exactly once as $t$ increases from $\alpha$ to $\beta$. If $C$ is rotated about an axis, the area of the resulting surface is         \begin{align*}
             &S = \int_\alpha^\beta 2\pi y \, ds &\text{rotation about x-axis} \\
             &S = \int_\alpha^\beta 2\pi x \, ds &\text{rotation about y-axis}
         \end{align*}
@@ -82,10 +82,7 @@
         \item We use the convention that $(-r, \theta)$ is the point $(r, \theta + \pi)$.
         \item The relationship between polar and Cartesian coordinates is given by
         \begin{align*}
-            x = r \cos{\theta} \hspace{6mm} y = r \sin{\theta}
-        \end{align*}
-        If $x$ and $y$ are known, we have the relation:
-        \begin{align*}
+            x = r \cos{\theta} \hspace{6mm} y = r \sin{\theta} \\
             r^2 = x^2 + y^2 \hspace{6mm} \tan{\theta} = \frac{y}{x}
         \end{align*}
         \item The graph of a polar equation $r = f(\theta)$ consists of all points that have a polar representation $(r, \theta)$ whose coordinates satisfy the equation. In sketching a polar curve, it is sometimes helpful to graph $r=f(\theta)$ in Cartesian coordinates to read off values of $r$ as $\theta$ increases.
@@ -143,7 +140,7 @@
             \vec{k} = \langle 0,0,1 \rangle 
         \end{align*}
         Sometimes vectors are written as linear combinations of $\vec{i},\vec{j},\vec{k}$.
-        \item The distance between vectors $\vec{v}$ and $\vec{u}$ is $\| \vec{v} - \vec{u} \|$.
+        % \item The distance between vectors $\vec{v}$ and $\vec{u}$ is $\| \vec{v} - \vec{u} \|$.
     \item The \textbf{dot product} (the standard inner product) of vectors $\vec{u}$ and $\vec{v}$ $\in$ $\mathbb{R}^n$ is defined as:
     \begin{equation*}
        \vec{u} \cdot \vec{v} = u_1v_1+\ldots u_nv_n
@@ -220,7 +217,7 @@
     \item To find the plane passing through points $P,Q,R$, we can find $\vec{PQ}$ and $\vec{PR}$ to obtain two vectors on the plane (recall the vector from $A$ to $B$ is $B-A$). Take their cross product to obtain a normal vector.
     \item Two planes are parallel if their normal vectors are parallel. If they are not, then they intersect. 
     \item To find the line of intersection between two planes, find a point on that line (e.g., take $z=0$ and solve for $x,y$) and take the cross product of the normal vectors to obtain a direction vector of the line. 
-    \item The angle between planes is given by the acute angle between their normal vectors (use definition of dot product).
+    \item The angle between planes is given by the acute angle between their normal vectors.
     \item The distance between the point $P_1(x_1,y_1,z_1)$ and the plane $ax+by+cz+d=0$ is the scalar projection of $P_1$ onto the normal vector of the plane:
     \begin{align*}
         D = \frac{|ax_1 + by_1+cz_1+d|}{\sqrt{a^2+b^2+c^2}}
@@ -289,10 +286,8 @@
     \item \textbf{Functions of Several Variables}
     \begin{enumerate}
         \item A function $f$ of two variables assigns a real number $f(x,y)$ to each ordered pair $x,y$ from a set $D$, the domain.
-        \item The graph of $f$ is the set of all points in $\mathbb{R}^3$ such that $z=f(x,y)$ and $x,y \in D$. 
         \item The \textbf{level curves} of $f$ are the curves with equations $f(x,y)=k$ for some constant $k$. Sketching level curves at various values of $k$ can help visualize the graph of the function.
     \end{enumerate}
-    \columnbreak
     \item \textbf{Limits}
     \begin{enumerate}
         \item We say that the limit of $f(x,y)$ as $(x,y)$ approaches $(a,b)$ is $L$, written
@@ -303,9 +298,9 @@
         
         \item The \textbf{squeeze theorem} can be used to prove a limit exists. If $f(x,y) \leq g(x,y) \leq h(x,y)$  for all $(x,y)$ near $(a,b)$, and $$\lim_{(x,y) \rightarrow (a,b)} f(x,y) = L = \lim_{(x,y) \rightarrow (a,b)} h(x,y)$$ then $$\lim_{(x,y) \rightarrow (a,b)} g(x,y) = L$$ This is done by trapping a subset of the function within a finite range, transforming all sides of the inequality to obtain the original function, then taking the limit of the inequality. Recall that $\lim_{x \rightarrow 0} \frac{sin{x}}{x} = 1$. 
         
-        \item If $f(x,y) \rightarrow L_1$ as $(x,y) \rightarrow (a,b)$ along a path $C_1$ and $f(x,y) \rightarrow L_2$ as $(x,y) \rightarrow (a,b)$ along a path $C_2$, where $L_1 \neq L_2$, then $\lim_{(x,y) \rightarrow (a,b)} f(x,y)$ \textit{does not exist}. Some simple paths to try include $x=a,y=b,$ or $y=mx$.
+        \item If $f(x,y) \rightarrow L_1$ as $(x,y) \rightarrow (a,b)$ along a path $C_1$ and $f(x,y) \rightarrow L_2$ as $(x,y) \rightarrow (a,b)$ along a path $C_2$, where $L_1 \neq L_2$, then $\lim_{(x,y) \rightarrow (a,b)} f(x,y)$ \textit{does not exist}. Some simple paths to try may include $x=a,y=b,$ or $y=mx$.
         
-        \item Another method for computing limits is to convert to polar coordinates; take $x=r\cos{\theta}$ and $y=\sin{\theta}$, and $\lim_{(x,y) \rightarrow (0,0)}$ becomes $\lim_{r \rightarrow 0}$. Can then apply L’Hospital’s rule.
+        \item Another method for computing limits is to convert to polar coordinates; take $x=r\cos{\theta}$ and $y=\sin{\theta}$, and $\lim_{(x,y) \rightarrow (0,0)}$ becomes $\lim_{r \rightarrow 0}$. Then apply L’Hospital’s rule.
         
         \item $f(x,y)$ is \textbf{continuous} at $(a,b)$ if $\lim_{(x,y) \rightarrow (a,b)}$ $f(x,y) = f(a,b)$. All polynomials and rational functions (ratios of polynomials) of two variables are continuous \textit{on their domain}, so limits can be found by direct substitution.
     \end{enumerate}
@@ -355,6 +350,7 @@
         \end{align*}
         Computing this will involve applications of the product rule and chain rule.
     \end{enumerate}
+    \columnbreak
     \item \textbf{Directional Derivatives and Gradients}
     \begin{enumerate}
         \item The partial derivative of $f$ with respect to $x$ yields the rate of change of $f$ in the direction of the $x$-axis. We now consider a new kind of derivative indicating the rate of change in any direction.
@@ -391,8 +387,9 @@
             F_x(x_0, y_0, z_0)(x-x_0) &+ F_y(x_0, y_0, z_0)(y-y_0) \\ &+ F_z(x_0, y_0, z_0)(z-z_0)=0
         \end{align*}
         Note that this is a generalization of tangent planes; the earlier discussion was for the special case where $S$ is of the form $z=f(x,y)$.
-        \item To find the angle of intersection of a vector function and surface: find point(s) of intersection, then calculate angle $\theta$ between tangent vector to curve and normal vector of tangent plane to surface. The angle of intersection is $90^\circ - \theta$.
+        % \item To find the angle of intersection of a vector function and surface: find point(s) of intersection, then calculate angle $\theta$ between tangent vector to curve and normal vector of tangent plane to surface. The angle of intersection is $90^\circ - \theta$.
     \end{enumerate}
+    \columnbreak
     
     \item \textbf{Maximum and Minimum Values}
     \begin{enumerate}
@@ -438,7 +435,7 @@
             \end{align*}
             \item Evaluate $f$ at all points that result. The largest of these is the maximum value of $f$ and the smallest of these is the minimum value.
         \end{enumerate}
-        In general, for a function of $n$ variables, the first step amounts to solving a system of $n+1$ equations in $n+1$ unknowns. Pay attention not to accidentally divide by zero; some ingenuity is required. Try breaking the system into cases where $\lambda = 0, \lambda \neq 0$, exactly one of $x,y,z$ is $0$, exactly two of $x,y,z$ are $0$, etc.
+        In general, for a function of $n$ variables, the first step amounts to solving a system of $n+1$ equations in $n+1$ unknowns. Take care not to accidentally divide by zero; some ingenuity is required. Try breaking the system into cases where $\lambda = 0, \lambda \neq 0$, exactly one of $x,y,z$ is $0$, exactly two of $x,y,z$ are $0$, etc.
         \item Multiple constraints: to find the extrema of $f(x,y,z)$ subject to $g(x,y,z)=k$ and $h(x,y,z)=c$, modify step (i) to find all values of $x,y,z,\lambda$ and $\mu$ such that
         \begin{align*}
             \nabla f(x, y, z) &= \lambda \nabla g(x, y, z) + \mu \nabla h(x,y,z) \\
@@ -543,7 +540,6 @@
         \end{align*}
         \item Convert a double integral in Cartesian coordinates into a double integral in Polar coordinates by taking $x = r \cos{\theta}$, $y=r\sin{\theta}$ and determining the appropriate limits of integration. 
     \end{enumerate}
-    \columnbreak
     \item \textbf{Applications of Double Integrals}
     \begin{enumerate}
         \item \textbf{Density and Mass} \\ A \textbf{lamina} is a two-dimensional planar closed surface with mass and density. Let $\mathcal{L}$ be a lamina of uniform density bounded by the curves $y=f(x)$, $y=g(x)$, $x=a$, and $x=b$, where $f(x) \geq g(x)$ and $b \geq a$. The \textbf{centroid}, or center of mass, of $\mathcal{L}$ is $(\bar{x}, \bar{y})$, where 
@@ -574,6 +570,8 @@
    \end{align*}
     
     \end{enumerate}
+    
+    \columnbreak
     \item \textbf{Triple Integrals}
     \begin{enumerate}
         \item Analogous to double integrals, we define triple integrals for functions of three variables as a triple Riemann sum over a box.
@@ -1022,18 +1020,21 @@
         \item In practice, this theorem is useful for converting a difficult surface integral into a simpler triple integral.
     \end{enumerate}
 \end{enumerate}
-\end{multicols*}
+\end{multicols}
 
 
 %~~~~~~~~~~~~~APPENDIX~~~~~~~~~~~~~
 
 \newpage
 \begin{multicols}{2}
-\section{Appendix}
+\section{Single Variable Calculus Appendix}
 \begin{enumerate}
     \item \textbf{Trigonometry}
     \begin{enumerate}
         \item     
+        \begin{align*}
+        \includegraphics[width=3cm]{tri.png}
+        \end{align*}
         \begin{align*}
         \hspace{-8mm}
             \sin{\theta} = \frac{\text{opp}}{\text{hyp}} \hspace{6mm}
@@ -1041,12 +1042,14 @@
             \tan{\theta} = \frac{\text{opp}}{\text{adj}} 
         \end{align*}
         
-        \item     
-        
-        \begin{align*}
-        \hspace{-11mm}
-            \includegraphics[width=7cm]{trig.jpg}
-        \end{align*}
+        \item 
+        \begin{tabular}[t]{lll}
+        $\sin{0} = 0$ & $\cos{0} = 1$ & $\tan{0} = 0$ \\[6pt]
+        $\sin{\frac{\pi}{6}} = \frac{1}{2}$ & $\cos{\frac{\pi}{6}} = \frac{\sqrt{3}}{2}$ & $\tan{\frac{\pi}{6}} = \frac{1}{\sqrt{3}}$ \\[6pt]
+        $\sin{\frac{\pi}{4}} = \frac{\sqrt{2}}{2}$ & $\cos{\frac{\pi}{4}} = \frac{\sqrt{2}}{2}$ & $\tan{\frac{\pi}{4}} = 1$ \\[6pt]
+        $\sin{\frac{\pi}{3}} = \frac{\sqrt{3}}{2}$ & $\cos{\frac{\pi}{3}} = \frac{1}{2}$ & $\tan{\frac{\pi}{3}} = \sqrt{3}$ \\[6pt]
+        $\sin{\frac{\pi}{2}} = 1$ & $\cos{\frac{\pi}{2}} = 0$ & $\tan{\frac{\pi}{2}} = \infty$ \\
+        \end{tabular} 
 
         \item     
         \begin{align*}
@@ -1076,21 +1079,29 @@
         \item Product Rule: $(f(x)g(x))' = f'(x)g(x) + f(x)g'(x)$
         \item Quotient Rule: $ \left( \frac{f(x)}{g(x)} \right)' = \frac{f'(x)g(x) - f(x)g'(x)}{g(x)^2}$
         \item Chain Rule: $ (f (g (x)))' = f'(g(x))g'(x)$
-        \item A function is concave up (convex) if $f''(x) > 0$ and concave down if $f''(x) < 0$.
+        \item A function is convex if $f''(x) > 0$ and concave if $f''(x) < 0$.
         \item Implicit Differentiation: $y$ is defined \textit{implicitly} as a function of $x$. Differentiate both sides of the equation with respect to $x$; $y$ becomes $\frac{dy}{dx}$.
-        \item Common Derivatives:
+        \item
+        \begin{tabular}[t]{ll}
+        $\frac{d}{dx}(ax^n) = nax^{n-1}$                        & $\frac{d}{dx}(\sin{x}) =  \cos{x}$   \\[6pt]
+        $\frac{d}{dx}(a^x) = a^x \ln{a}$                        & $\frac{d}{dx}(\cos{x}) = -\sin{x}$   \\[6pt]
+        $\frac{d}{dx}(\ln{x}) = \frac{1}{x}$                    & $\frac{d}{dx}(\tan{x}) =  \sec^2{x}$ \\[6pt]
+        $\frac{d}{dx}(\log_a{x}) = \frac{1}{x\ln{a}}$           & $\frac{d}{dx}(\sin^{-1}{x}) = \frac{1}{\sqrt{1-x^2}}$ \\[6pt]
+        $\frac{d}{dx}(\cos^{-1}{x}) = -\frac{1}{\sqrt{1-x^2}}$  & $\frac{d}{dx}(\tan^{-1}{x}) = \frac{1}{1+x^2}$ \\[6pt]
+        \end{tabular}
+
     \end{enumerate}
-        \begin{align*}
-        \hspace{-7mm}
-            \includegraphics[width=9.5cm]{deriv.png}
-        \end{align*}
-    \item \textbf{Integrals} \\
-    Common Integrals:
-    \begin{align*}
-        \hspace{-7mm}
-        \includegraphics[width=9.5cm]{integrals.png}
-    \end{align*}
+    \item \textbf{Integrals}
     \begin{enumerate}
+    \item 
+    \begin{tabular}[t]{lll}
+    $\int a \, dx = ax + c$      					& $\int e^x \, dx = e^x + c$            \\[6pt]
+    $\int x^n \, dx = \frac{1}{n+1}x^{n+1} + c$     & $\int \sin{x} \, dx = -\cos{x} + c$   \\[6pt]     
+    $\int \frac{1}{x} \, dx = \ln{|x|} + c$      	& $\int \cos{x} \, dx = \sin{x} + c$    \\[6pt]     
+    $\int \ln{x} \, dx = -x + x\ln{x} + c$          & $\int \sec^2{x} \, dx = \tan{x} + c$  \\[6pt]
+    \end{tabular}
+    
+    
     \item Arc length: The arc length of a curve of the form $y=f(x)$, $a \leq x \leq b$ is given by 
     \begin{align*}
         L = \int_a^b \sqrt{1 + \left(\frac{dy}{dx}\right)^2} \, dx
