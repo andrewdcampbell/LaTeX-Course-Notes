@@ -1049,7 +1049,7 @@
         $\sin{\frac{\pi}{4}} = \frac{\sqrt{2}}{2}$ & $\cos{\frac{\pi}{4}} = \frac{\sqrt{2}}{2}$ & $\tan{\frac{\pi}{4}} = 1$ \\[6pt]
         $\sin{\frac{\pi}{3}} = \frac{\sqrt{3}}{2}$ & $\cos{\frac{\pi}{3}} = \frac{1}{2}$ & $\tan{\frac{\pi}{3}} = \sqrt{3}$ \\[6pt]
         $\sin{\frac{\pi}{2}} = 1$ & $\cos{\frac{\pi}{2}} = 0$ & $\tan{\frac{\pi}{2}} = \infty$ \\
-        \end{tabular} 
+        \end{tabular}
 
         \item     
         \begin{align*}
@@ -1126,6 +1126,11 @@
         \begin{align*}
             \lim_{x \rightarrow a} \frac{f(x)}{g(x)} = \lim_{x \rightarrow a} \frac{f'(x)}{g'(x)}
         \end{align*}
+        \item For a $p$-times differentiable function $f: \mathbb{R} \mapsto \mathbb{R}$, the Taylor series polynomial of degree $m \leq p - 1$ about the point $x_0$ is given by
+        \begin{align}
+        \sum_{i = 0}^m \frac{1}{i!} f^{(i)}(x_0) (x - x_0)^i 
+        \end{align}
+        where $f^{(m)}$ denotes the $m$th derivative of $f$.
         \item Completing the square: 
         \begin{align*}
             x^2 + bx = 0 &\rightarrow x^2 + bx + \left(\frac{b}{2}\right)^2 = \left(\frac{b}{2}\right)^2 \\ & \rightarrow \left(x+\frac{b}{2}\right)^2 = \left(\frac{b}{2}\right)^2

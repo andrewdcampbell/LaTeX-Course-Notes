@@ -22,8 +22,8 @@
 \usepackage{changepage}
 \usepackage{chngcntr}
 \usepackage{scrextend}
-\newcommand{\norm}[1]{\lvert #1 \rvert}
-\newcommand{\Est}[1]{\hat{#1}}
+\usepackage{minted}
+\usemintedstyle{colorful}
 
 \begin{document}
 \date{}
@@ -33,7 +33,7 @@
 \begin{enumerate}
     \item \textbf{Sets} 
     \begin{enumerate}
-        \item In mathematics, a \textbf{set} is a well-defined collection of distinct objects. The \textbf{cardinality}, or size, of a set $A$ is denoted by $\norm{A}$. If $x$ is an element of $A$, we denote membership by $x \in A$.
+        \item In mathematics, a \textbf{set} is a well-defined collection of distinct objects. The \textbf{cardinality}, or size, of a set $A$ is denoted by $|A|$. If $x$ is an element of $A$, we denote membership by $x \in A$.
          \item If every element of a set $A$ is also in set $B$, then we say that $A$ is a \textbf{subset} of $B$, written $A \subseteq B$. 
          \item Two sets $A$ and $B$ are said to be \textbf{equal} if $A \subseteq B$ and $B \subseteq A$.
          \item A \textbf{proper subset} is a set $A$ that is strictly contained in $B$, written as $A \subset B$, meaning that $A$ excludes at least one element of $B$. 
@@ -94,15 +94,15 @@
     
     \item \textbf{Proof techniques}
     \begin{enumerate}
-        \item \textbf{Direct Proof:} Goal: Prove $P \implies Q$. Assume $P$ $\hdots$ therefore $Q$. Often involves appealing to definitions and using algebraic manipulations.
+        \item \textbf{Direct proof:} Goal: Prove $P \implies Q$. Assume $P$ $\hdots$ therefore $Q$. Often involves appealing to definitions and using algebraic manipulations.
         \item \textbf{Proof by contraposition:} Goal: Prove $P \implies Q$. Assume $\neg Q$ $\hdots$ therefore $\neg P$.
         \item \textbf{Proof by contradiction:} Goal: Prove $P$. Assume $\neg P$. Show that $\neg P \implies R \land \neg R$, a contradiction. Therefore, $P$.
         \item \textbf{Proof by cases:} In proving a claim, we don’t know which of a set of possible cases is true, but we know that at least one of the cases is true. What we can do then is to prove the result in both cases; then, clearly the general statement must hold.
-        \item \textbf{Proof by Induction:} Goal: Prove $P$. Choose an appropriate quantity $n$ to induct on. In the \textit{base case}, show that $P(1)$ is true. In the inductive hypotheses, assume $P(k)$ is true for some $k \geq 1$. In the inductive step, show that the claim holds for $P(k+1)$. Conclude that $P$ holds for all $n$.
-        \item \textbf{Strong Induction:} Same as induction, but with stronger inductive hypotheses: Assume $P(j)$ is true for all $1 \leq j \leq k$ for some $k$. Then show that $P(k+1)$ is true.
+        \item \textbf{Proof by induction:} Goal: Prove $P$. Choose an appropriate quantity $n$ to induct on. In the \textit{base case}, show that $P(1)$ is true. In the inductive hypotheses, assume $P(k)$ is true for some $k \geq 1$. In the inductive step, show that the claim holds for $P(k+1)$. Conclude that $P$ holds for all $n$.
+        \item \textbf{Strong induction:} Same as induction, but with stronger inductive hypotheses: Assume $P(j)$ is true for all $1 \leq j \leq k$ for some $k$. Then show that $P(k+1)$ is true.
     \end{enumerate}
     
-    \item \textbf{Stable Marriage Algorithm:} Each man and woman has an ordered preference list of their $n$ potential partners. The algorithm is as follows: 
+    \item \textbf{Stable Marriage algorithm:} Each man and woman has an ordered preference list of their $n$ potential partners. The algorithm is as follows: 
     \begin{enumerate}
         \item Each man proposes to the most preferred woman on his list who has not yet rejected him.
         \item Each woman collects all the proposals she received; to the man she likes best, she responds “maybe” (puts him on a string), and to the others, she says “never”.
@@ -123,24 +123,24 @@
         \item The edge $e = \{u, v \}$ is \textit{incident} on vertices $u$ and $v$, and we say $u$ and $v$ are \textit{adjacent}. If $G$ is undirected, then the \textit{degree} of vertex $u \in V$ is the number of edges incident to $u$. If $G$ is directed, $u$ has an associated \textit{in-degree} and \textit{out-degree}.
         \item Let $G$ be an undirected graph. A \textbf{path} in $G$ is a sequence of edges with no repeated vertices or edges (simple). A \textbf{cycle} is a path which starts and ends on the same vertex. A \textbf{walk} is a sequence of edges which can have repeated vertices. A \textbf{tour} is a walk which starts and ends at the same vertex. \textbf{Connected components} are sets $V_1,\hdots,V_k$ of vertices, such that all vertices in a set $V_i$ are connected.
         \item A Eulerian walk is a walk in $G$ that uses each edge exactly once (Eulerian tour if ends at same vertex). \textit{Theorem:} An undirected graph $G$ has a Eulerian tour iff $G$ is even degree and connected (except for isolated vertices). 
-        \item Recursive algorithm for Eulerian Tour:
-        \begin{verbatim}
-def Euler(G,s): 
-    T = findTour(G,s) 
-    return splice(T,Euler(G_1,s_1),...
-        EULER(G_k,s_k))
-        \end{verbatim}
-        ($G_1, \hdots,G_k$ are the connected components when the edges in $T$ are removed from $G$, and $s_i$ is the first vertex in $T$ that intersects $G_i$. findTour($G,s$), finds any tour from $s$. splice returns a combined tour obtained by traversing the edges of $T$, and whenever it reaches a vertex $s_i$ that intersects another tour $T_i$, it takes a detour to traverse $T_i$ from $s_i$ back to $s_i$ again, and only then it continues traversing $T$.)
+        \item A recursive algorithm for Eulerian Tour is as follows:
+        \begin{minted}[linenos=false, escapeinside=??, mathescape=true]{octave}
+function Euler(?$G,s$?): 
+    T = findTour(?$G,s$?) 
+    return splice(T, Euler(?$G_1, s_1$?), ?$\hdots$?, 
+                     Euler(?$G_k, s_k$?))
+        \end{minted}
+        where \texttt{findTour}($G,s$) finds any tour in $G$ from $s$; $G_1, \hdots,G_k$ are the connected components when the edges in $T$ are removed from $G$; $s_i$ is the first vertex in $T$ that intersects $G_i$; and \texttt{splice} returns a combined tour obtained by traversing the edges of $T$ such that whenever it reaches a vertex $s_i$ that intersects another tour $T_i$, it takes a detour to traverse $T_i$ from $s_i$ back to $s_i$ again.
         \item A graph is a \textbf{tree} if it is connected and acyclic. Equivalent definitinions include: There are $v-1$ edges; the removal of any edge disconnects the graph; the addition of any edge creates a cycle. Unique path between any pair of vertices. Note that a tree must contain a degree 1 node (called a leaf).
         \item A graph is \textbf{planar} if it can be drawn on the plane without crossings. \textbf{Faces} $f$ are the regions into which the graph subdivides the plane. 
-        \item Euler's Formula: For every connected planar graph, $v+f=e+2$ (The converse is NOT true). Important consequence: $e \leq 3v-6$ (Planar graphs are sparse).
+        \item Euler's Formula: For every connected planar graph, $v+f=e+2$. Important consequence: $e \leq 3v-6$ (Planar graphs are sparse).
         \item A graph is non-planar if and only if it contains $K_5$ or $K_{3,3}:$
         \begin{align*}
             \includegraphics[width=4cm]{kk.png}
         \end{align*}
         (Contains means that one can identify nodes in the graph which are connected as $K_5$ or $k_{3,3}$ through paths such that each two of these paths share a vertex.)
         \item A \textbf{bipartite graph} is a graph whose vertices can be divided into two disjoint sets (no shared elements) $U$ and $V$ such that \textit{every} edge connects a vertex in $U$ to a vertex in $V$.
-        \item A \textbf{Complete Graph} is a graph in which all nodes are connected to all other nodes. Let $K_n$ denote the unique complete graph for $n$ vertices. $K_n$ has $n(n-1)/2$ edges.
+        \item A \textbf{complete graph} is a graph in which all nodes are connected to all other nodes. Let $K_n$ denote the unique complete graph for $n$ vertices. $K_n$ has $n(n-1)/2$ edges.
         \item Useful facts: 
         \begin{enumerate}
             \item By definition of a cycle, removing any edge in the cycle does not disconnect the graph $G$.
@@ -161,28 +161,27 @@ def Euler(G,s):
     \item \textbf{Modular Arithmetic} 
     \begin{enumerate}
         \item $x$ (mod $n$) = $x - (\left \lfloor{\frac{x}{n}}\right \rfloor n)$
-        \item We can perform any sequence of arithmetic operations (mod $n$) and the result is robust — it remains unchanged whether we reduce by (mod $n$) only once at the end of all operations, or we reduce each intermediate result by (mod $n$).
+        \item We can perform any sequence of arithmetic operations $\pmod{n}$ and the result remains unchanged whether we reduce by $\pmod{n}$ only once at the end of all operations, or we reduce each intermediate result by $\pmod{n}$.
         \item For two integers $a$ and $b$, we define $a$ to be congruent to $b$ modulo $n$ ($a \equiv_n b$) iff: \\
-            $\iff a ($mod $n) = b ($mod $n)$ \\ $\iff n | (a-b)$ \\ $\iff a = b+kn$
+            $\iff a \pmod{n} = b \pmod{n}$ \\ $\iff n | (a-b)$ \\ $\iff a = b+kn$
         \item For all $n \geq 1$ and $a,b,c,d \in \mathbb{Z}$, if $a \equiv_n b$ and $c \equiv_n d$, then
         \begin{enumerate}
             \item $a + c \equiv_n b + d$
             \item $a - c \equiv_n b - d$
             \item $ac \equiv_n bd$
         \end{enumerate}
-        \item The \textbf{multiplicative inverse} of $x$ (mod $n$) is $y$ such that $xy$ (mod $n$) = 1. \textit{Theorem:} $x$ has a multiplicative inverse modulo $n$ if and only if $gcd(x,n)=1$. Moreover, this inverse is unique.
-        \item We note that if $x \geq y$, then $gcd(x,y)=gcd(y, x$ (mod $y$)). This allows to write the following algorithm: \\ 
-        Extended $gcd$ algorithm for $x \geq y \geq 0$ and $x > 0$: \\
-        def extended-gcd($x,y$): 
-        \begin{addmargin}[2em]{1em}
-            if $y$ == 0:
-            \begin{addmargin}[2em]{1em}
-                return ($x, 1, 0$) 
-            \end{addmargin}
-            $gcd, a, b$ = extended-gcd($y, x $(mod $y$)) \\
-            return $(gcd, b, a - \left \lfloor{\frac{x}{y}}\right \rfloor b)$
-        \end{addmargin} 
-        It returns ($gcd, a, b$) such that $gcd$ is $gcd(x,y)$ and $a$,$b$ satisfy $gcd = ax + by$. Thus $b$ is the multiplicative inverse of $x$ (mod $n$). \\
+        \item The \textbf{multiplicative inverse} of $x \pmod{n}$ is $y$ such that $xy\pmod{n} = 1$. \textit{Theorem:} $x$ has a multiplicative inverse modulo $n$ if and only if $\gcd(x,n)=1$. Moreover, this inverse is unique.
+        \item We note that if $x \geq y$, then $\gcd(x,y)=\gcd(y, x$ $\pmod{y}$). This allows to write the following extended $\gcd$ algorithm for $x \geq y \geq 0$ and $x > 0$:
+        \begin{minted}[linenos=false, escapeinside=??, mathescape=true]{octave}
+function extendedGCD(?$x,y$?)
+if ?$y = 0$?:
+    return (?$x,1,0$?)
+gcd, ?$a$?, ?$b$? = extendedGCD(?$y,x \pmod{y}$?)
+return (gcd, ?$b$?, ?$a - \lfloor \frac{x}{y} \rfloor b$?)
+        \end{minted}
+        It returns ($\gcd, a, b$) such that $\gcd$ is $\gcd(x,y)$ and $a$,$b$ satisfy $\gcd = ax + by$. Thus $b$ is the multiplicative inverse of $x$ (mod $n$).
+        
+        
         This algorithm uses $2n$ divisions, where $n$ is the number of bits (an integer $x$ requires $\lfloor{log_2(x)} \rfloor+1)$ bits).
     \end{enumerate}
     
@@ -209,7 +208,7 @@ def Euler(G,s):
     \textit{Proof:} This follows from the following facts:
     \begin{itemize}
         \item If $a$ is a root of $p(x)$ with degree $d$, then $p(x) = (x - a)q(x)$ for a polynomial $q(x)$ with degree $d - 1$. (We use the result from polynomial division and show $r(x)=0$).
-        \item A polynomial $p(x)$ of degree $d$ with distinct roots $a_1,\hdots,a_d$ can be written as $p(x)=c(x-a_1) \ldots (x-a_d)$ (This follows from fact 1).
+        \item A polynomial $p(x)$ of degree $d$ with distinct roots $a_1,\hdots,a_d$ can be written as $p(x)=c(x-a_1) \ldots (x-a_d)$.
     \end{itemize}
     \item \textbf{Property 2:} Given $d+1$ pairs $(x_1,y_1),\hdots,$ $(x_{d+1}, y_{d+1})$ of points, all $x_i$ distinct, there is a unique polynomial of (at most) degree $d$ that passes through all points. \\
     \textit{Proof:} Existence of a polynomial is proved by lagrange interpolation. Proof of uniqueness: suppose there is another such polynomial, $q(x)$. Consider a polynomial $r(x)=p(x)-q(x)$. $r(x)$ must a non-zero polynomial of degree $d$ with at most $d$ roots. But $r(x_i)=p(x_i)-q(x_i)=0$ on $d+1$ distinct points. Contradiction.
@@ -239,7 +238,7 @@ def Euler(G,s):
             Q(x)&=a_{n+k-1}x^{n+k-1}+\hdots+a_1x+a_0 \\
             E(x)&=x^k+b_{k-1}x^{k-1}+\hdots b_1x+b_0
         \end{align*}
-        For all $1 \leq i \leq n+2k$, the equation $Q(i)=r_iE(i)$ is a linear equation in the $n+2k$ unknowns ($a_{n+k-1},\hdots,a_0$ and $b_{k-1},\hdots,b_0$). So we get a linear system of $n+2k$ equations which we solve to get $Q(x)$ and $E(x)$. Then $P(x)=\frac{Q(x)}{E(x)}$. Remember to do all this mod $q$.
+        For all $1 \leq i \leq n+2k$, the equation $Q(i)=r_iE(i)$ is a linear equation in the $n+2k$ unknowns ($a_{n+k-1},\hdots,a_0$ and $b_{k-1},\hdots,b_0$). So we get a linear system of $n+2k$ equations which we solve to get $Q(x)$ and $E(x)$. Then $P(x)=\frac{Q(x)}{E(x)}$. All of this is done modulo $q$.
     \end{enumerate}
         
         \item \textbf{Infinity and Countability}
@@ -268,16 +267,15 @@ def Euler(G,s):
                \end{cases}
             \]
             Now consider the program \texttt{Turing}:
-            \begin{verbatim}
-    def Turing(P):
-        if TestHalt(P,P): loop forever
-        else: halt
-            \end{verbatim}
+        \begin{minted}[linenos=false, escapeinside=??, mathescape=true]{octave}
+function Turing(P):
+    if TestHalt(P,P): loop forever
+    else: halt
+            \end{minted}
             where we treat the bit string representation of P as input to \texttt{TestHalt}. Now consider \texttt{Turing(Turing)}. Whether it halts or not, it leads to a contradiction like that of the liar's paradox. This paradox shows the assumption that \texttt{TestHalt} exists was False. 
             \item It turns out that writing a program that tests if P halts on a specific input 0 is also impossible, because if it was, then \texttt{TestHalt} would be solvable (consider a program that P' that takes 0 as input and simply returns P(x)).
             \item \textbf{Godel's Incompleteness Theorem} shows that arithmetic (or any formal system that formalizes computation) is either \textit{inconsistent} (there are false statements that can be proved) or \textit{incomplete} (there are true statements that cannot be proved). Let S be the statement ``P halts on input 0". Since we assume arithmetic is complete and consistent, S is true or false and there is a proof either way. All proofs are finite binary strings, so there are countably many proofs. Consider a program that takes as input the program P, and proceeds to check every possible proof until it finds one that proves either P(0) halts, or P(0) does not halt. This program will terminate in finite time, and it will correctly answer the Easy Halting Problem (contradiction!)
         \end{enumerate}
-        \newpage
         \item \textbf{Counting}
         \begin{enumerate}
             \item \textbf{First rule of counting:} If an object can be made by a succession of $k$ choices where there are $n_1$ ways of making the first choice, $n_2$ ways of making the second choice, and so on up to the $n_k$-th choice, then the total number of distinct objects is the product of $n_1, \hdots, n_k$. 
@@ -358,28 +356,38 @@ def Euler(G,s):
         \begin{enumerate}
             \item A \textbf{random variable} $X$ for an experiment with sample space $\Omega$ is a function $X: \Omega \mapsto \mathbb{R}$ that assigns each sample point $\omega \in \Omega$ a real number $X(\omega)$. 
             \item The event $X = x$ is the subset of outcomes $\omega$ such that $X(\omega)=x$.
-            \item The \textbf{distribution} of $X$ is the set $x, P(X = x))$ for all $x$ in the range of $X$. This forms a partition of $\Omega$, so the sum of $P(X = x)$ for all $x$ is 1.
+            \item The \textbf{distribution} of $X$ is the set $(x, P(X = x))$ for all $x$ in the range of $X$. This forms a partition of $\Omega$, so the sum of $P(X = x)$ for all $x$ is 1.
             \item Two random variables $X$ and $Y$ are \textbf{independent} if $\forall x, y$ $P(X = x,Y=y)=P(X=x)P(Y=y)$. Functions of independent random variables are also independnent. 
             
-            \item The \textbf{expectation} of a discrete random variable $X$ (mean or average) is defined as 
+            \item The \textbf{expectation} of a discrete random variable $X$ is defined as 
             $$E(X) = \sum_{x} x P(X=x)$$
             Equivalently, 
             $$E(X) = \sum_{\omega \in \Omega} X(\omega) \times P(\omega)$$
+            Intuitively, it is the mean value of $X$.
             \item \textit{Linearity of expectation:} For any two random variables $X$ and $Y$ in the same probability space, we have 
             \begin{align*}
                 E(X+Y) &= E(X)+E(Y) \\
                 E(cX) &= cE(x)
             \end{align*}  
             If $X$ and $Y$ are independent, we also have $$E(XY)=E(X)E(Y)$$ 
-            Linearity is very powerful, as demonstrated by the examples below.
+            Linearity is very powerful, as illustrated in the examples below.
             \item Let $X$ be the number of students who get their own homework back after shuffling in a class size of 20 (the number of fixed points). We can write $X$ as $X=X_1+X_2+\hdots+X_{20}$, where $X_i$ is 1 if student $i$ receives their own homework, and 0 else. Such a $\{0,1\}$-valued random variable $1_A$ is called an \textbf{indicator} variable of event $A$, and is said to have the \textbf{Bernoulli} distribution. The expectation is easy to calculate:
             \begin{align*}
                 E(1_A) = P(1_A = 1)
             \end{align*}
-            (We also have $\text{Var}(1_A)=P(A)(1-P(A)))$. In our example, $P(X_i=1) = \frac{1}{20}$. Use linearity of expectation to see that $E(X) = 20 \times \frac{1}{20} = 1$. In other words, the expected number of fixed points in a random permutation of $n$ items is always 1, regardless of $n$. 
-            \item Hashing examples: Throw $k$ balls into $n$ bins. \\ The \textit{expected number of balls per bin?} \\ Let $X$ be the number of balls in a particular bin. Then $X=X_1+X_2+\ldots+X_k$, where $X_i$ is 1 if ball $i$ lands in that bin, otherwise 0. $E(X_i)=P(X_i=1)=\frac{1}{n}$, so $E(X)=\frac{k}{n}$. \\ The \textit{expected number of empty locations}? \\ Let $Y$ be the number of empty locations. Then $Y=Y_1+Y_2+\ldots+Y_n$, where $Y_i$ is 1 if bin $i$ is empty and 0 otherwise. The probability a bin is empty is $P(Y_i=1)=(1 - \frac{1}{n})^k$, so $E(Y)=n \left(1 - \frac{1}{n}\right)^k$. \\
-            The \textit{expected number of collisions}?\\ A collision occurs when we hash an item to a location that already contains an item. Use the result from above; there are $n - Y$ non-empty locations, so there are $k - (n - Y) = k-n+Y$ collisions. Substitute the value for $E(Y)$ to see there are $k-n+n \left(1 - \frac{1}{n}\right)^k$ expected collisions.
-            \item Coupon example: How many boxes do we need to buy before we have all $n$ coupons? Let $X$ denote this number. Then $X = X_1 + X_2 + \hdots + X_{n}$, where $X_i$ denotes the number of boxes we buy before getting a new coupon (not one of $i-1$ we already have). $X_i$ has the geometric distribution where probability of success is $1 - \frac{i-1}{n} = \frac{n-i+1}{n}$, so $E(X_i) = \frac{1}{\frac{n-i+1}{n}} = \frac{n}{n-i+1}$. Then $E(X)=n \left( \frac{1}{n} + \frac{1}{n-1} + \ldots + \frac{1}{1} \right) = n\sum_{i=1}^{n} \frac{1}{i} \in O(n\ln n)$.
+            We also have $\text{Var}(1_A)=P(A)(1-P(A))$. In our example, $P(X_i=1) = \frac{1}{20}$. By linearity of expectation, $E(X) = 20 \times \frac{1}{20} = 1$. In other words, the expected number of fixed points in a random permutation of $n$ items is always 1, regardless of $n$. 
+            \item Hashing examples: Throw $k$ balls into $n$ bins.
+            
+            
+            The \textit{expected number of balls per bin?} \\ Let $X$ be the number of balls in a particular bin. Then $X=X_1+X_2+\ldots+X_k$, where $X_i$ is 1 if ball $i$ lands in that bin, otherwise 0. $E(X_i)=P(X_i=1)=\frac{1}{n}$, so $E(X)=\frac{k}{n}$.  
+            
+            The \textit{expected number of empty locations}? \\ Let $Y$ be the number of empty locations. Then $Y=Y_1+Y_2+\ldots+Y_n$, where $Y_i$ is 1 if bin $i$ is empty and 0 otherwise. The probability a bin is empty is $P(Y_i=1)=(1 - \frac{1}{n})^k$, so $E(Y)=n \left(1 - \frac{1}{n}\right)^k$.
+            
+            
+            The \textit{expected number of collisions}?\\ 
+            A collision occurs when we hash an item to a location that already contains an item. Use the result from above; there are $n - Y$ non-empty locations, so there are $k - (n - Y) = k-n+Y$ collisions. Substitute the value for $E(Y)$ to see there are $k-n+n \left(1 - \frac{1}{n}\right)^k$ expected collisions.
+            
+            \item Coupon collector problem: How many boxes do we need to buy before we have all $n$ coupons? Let $X$ denote this number. Then $X = X_1 + X_2 + \hdots + X_{n}$, where $X_i$ denotes the number of boxes we buy before getting a new coupon (not one of $i-1$ we already have). $X_i$ has the geometric distribution where probability of success is $1 - \frac{i-1}{n} = \frac{n-i+1}{n}$, so $E(X_i) = \frac{1}{\frac{n-i+1}{n}} = \frac{n}{n-i+1}$. Then $E(X)=n \left( \frac{1}{n} + \frac{1}{n-1} + \ldots + \frac{1}{1} \right) = n\sum_{i=1}^{n} \frac{1}{i} \in O(n\ln n)$.
             \item If $X$ is a random variable and $f: \mathbb{R} \mapsto \mathbb{R}$ is a function, then $f(X)$ is a random variable. We have $$E(f(X)) = \sum_x f(x)P(X = x)$$
             More generally, $$E(f(X,Y)) = \sum_{x,y} f(x,y)P(X=x,Y=y)$$
              
@@ -409,6 +417,8 @@ def Euler(G,s):
             \item Computing the variance of \textit{dependent} random variables that can be written as a sum of indicator variables is mostly painless. Let $X=1_{A_1}+\ldots+1_{A_n}$, where the indicators are identically distributed. Then $E(X)=nP(A_i)$. We have $E(X^2)=\sum_{i=1}^{n} [E(X_i^2)+\sum_{j \neq i} E(X_iX_j)]$. Therefore $\text{Var}(X)=E(X^2)-E(X)^2=nP(A_i)+n(n-1)P(A_i \cap A_j)-n^2P(A_i)^2$.
         \end{enumerate}
         
+        \columnbreak
+        
         \item \textbf{Distributions}
         \begin{enumerate}
             \item \textbf{Binomial distribution:} Models the number of successes in $n$ independent trials. Define $X$ to be the number of heads after flipping a biased coin $n$ times that lands heads with probability $p$. The probability of the event $X = i$ is the sum of the probabilities of all the sample points with exactly $i$ heads. Any such sample point has probability $p^i(1-p)^{n-i}$ and there are ${n \choose i}$ of these sample points, so 
@@ -416,7 +426,7 @@ def Euler(G,s):
                 P(X = i) = {n \choose i} p^i(1-p)^{n-i}
             \end{align*}
             Clearly $E(X)=np$. $\text{Var}(X)=np(1-p)$.
-            \item \textbf{Uniform distribution:} where $X$ is uniformly distributed in $\{1,\ldots,n\}$, then $E(X) = \frac{n+1}{2}$. $\text{Var}(X)=\frac{n^2-1}{12}$.
+            \item \textbf{Uniform distribution:} $X$ is \textit{uniformly} distributed in $\{1,\ldots,n\}$. $E(X) = \frac{n+1}{2}$. $\text{Var}(X)=\frac{n^2-1}{12}$.
             \item \textbf{Geometric distribution:} A random variable $X$ for which $$P(X=i)=(1-p)^{i-1}p$$ Usually, $X$ is the number of independent trials \textit{until} a certain event happens with probability $p$. We have $$E(X) = \frac{1}{p}$$
             To see this, we make use of the Tail Sum formula: \textit{Let $X$ be a random variable that only takes values in $\mathbb{N}$. Then}
             $$E(X) = \sum_{i=1}^{\infty} P(X \geq i)$$
